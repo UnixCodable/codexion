@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/28 13:27:54 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/28 15:46:27 by lbordana         ###   ########.fr       */
+/*   Created: 2026/04/28 14:29:05 by lbordana          #+#    #+#             */
+/*   Updated: 2026/04/28 15:37:24 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	main(int ac, char **av)
+bool	isnumber(char *arg)
 {
-	(void) ac;
-	if (validate_arguments(av + 1) == false)
-		return (0);
+	while (*arg != '\0')
+	{
+		if (*arg >= '0' && *arg <= '9')
+			arg++;
+		else
+			return (false);
+	}
+	return (true);
+}
 
-	return (1);
+bool	validate_arguments(char **args)
+{
+	while (*args != NULL)
+	{
+		if (isnumber(*args) == false || atoi(*args) < 0)
+			return (false);
+		args++;
+	}
+	return (true);
 }
