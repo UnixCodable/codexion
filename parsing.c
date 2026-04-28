@@ -6,13 +6,13 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 14:29:05 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/28 15:37:24 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/28 16:10:34 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-bool	isnumber(char *arg)
+bool	is_number(char *arg)
 {
 	while (*arg != '\0')
 	{
@@ -28,7 +28,7 @@ bool	validate_arguments(char **args)
 {
 	while (*args != NULL)
 	{
-		if (isnumber(*args) == false || atoi(*args) < 0)
+		if (is_number(*args) == false || atoi(*args) < 0)
 			return (false);
 		args++;
 	}
