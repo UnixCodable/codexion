@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 13:17:19 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 17:45:21 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/29 20:31:20 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ char	**ft_matdup(char **s)
 {
 	char	**dup;
 	int		i;
-	int		j;
 
 	dup = malloc(sizeof(s));
 	if (!dup)
 		return (NULL);
 	i = 0;
-	j = 0;
 	while (s[i] != NULL)
 	{
 		dup[i] = ft_strdup(s[i]);

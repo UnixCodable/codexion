@@ -6,11 +6,17 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:34:14 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 18:54:31 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/29 20:57:52 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../headers/codexion.h"
+
+int	raise_error(void)
+{
+	fprintf(stderr, "\033[1;31mError while validating arguments.\033[0m\n");
+	return (-1);
+}
 
 bool	validate_arguments(char **args)
 {
