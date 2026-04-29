@@ -1,12 +1,21 @@
 NAME=codexion
 CC=cc
-FLAGS=-Wall -Wextra -Werror -pthread
-OFILES=
+CFLAGS=-Wall -Wextra -Werror -pthread
+WORKDIR=quantum/
+OBJDIR=$(WORKDIR)objects/
 CFILES=
+OFILES=$(FILES:%.c=$(OBJDIR)%.o)
 
-all:
+all: $(NAME)
 
-$(NAME):
+$(NAME): $(OFILES)
+	$(CC) $(CFLAGS) $(CFILES) -o $(NAME)
+
+$(OBJDIR)%.o: %.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $(CFILES) -o $(OFILES)
+
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
 clean:
 
