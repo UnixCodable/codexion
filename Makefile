@@ -4,7 +4,8 @@ CFLAGS=-Wall -Wextra -Werror -pthread
 WORKDIR=quantum/
 OBJDIR=$(WORKDIR)objects/
 CFILES=codexion.c\
-	   argument_validation.c\
+	   args_validation.c\
+	   struct_organizer.c\
 	   duplication.c\
 	   validation.c
 OFILES=$(CFILES:%.c=$(OBJDIR)%.o)

@@ -6,11 +6,11 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 13:17:19 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 17:28:10 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:45:21 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../codexion.h"
+#include "../headers/codexion.h"
 
 char	*ft_strdup(const char *s)
 {

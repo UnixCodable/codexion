@@ -1,25 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   prototypes.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/29 17:26:44 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 17:45:19 by lbordana         ###   ########.fr       */
+/*   Created: 2026/04/29 17:43:40 by lbordana          #+#    #+#             */
+/*   Updated: 2026/04/29 18:23:32 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/codexion.h"
+#ifndef PROTOTYPES_H
+# define PROTOTYPES_H
 
-bool	is_number(char *arg)
-{
-	while (*arg != '\0')
-	{
-		if (*arg >= '0' && *arg <= '9')
-			arg++;
-		else
-			return (false);
-	}
-	return (true);
-}
+bool					validate_arguments(char **args);
+bool					is_number(char *arg);
+char					**ft_matdup(char **s);
+char					*ft_strdup(const char *s);
+struct s_codex_data		arguments_organizer(char **args);
+
+#endif

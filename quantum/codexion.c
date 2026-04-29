@@ -6,11 +6,11 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 13:27:54 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 16:59:43 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/29 17:45:10 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "headers/codexion.h"
 
 void	quantum_manager(void)
 {
