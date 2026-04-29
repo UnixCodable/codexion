@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 13:27:54 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 17:45:10 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/29 19:03:10 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ void	quantum_manager(void)
 int	main(int ac, char **av)
 {
 	av++;
-	if (ac != 9 || validate_arguments(ft_matdup(av)) == false)
+	if (ac != 9 || validate_arguments(av) == false)
 		return (0);
-
 	return (1);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   argument_validation.c                              :+:      :+:    :+:   */
+/*   args_validation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:34:14 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 17:45:26 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/29 18:54:31 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 bool	validate_arguments(char **args)
 {
-	while (*args != NULL)
+	while ((args + 1)[0] != NULL)
 	{
 		if (is_number(*args) == false || atoi(*args) < 0)
 			return (false);
 		args++;
 	}
-	return (true);
+	if (strcmp(*args, "fifo") == 0 || strcmp(*args, "edf") == 0)
+		return (true);
+	return (false);
 }
