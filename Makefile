@@ -4,14 +4,21 @@ CFLAGS=-Wall -Wextra -Werror -pthread
 WORKDIR=quantum/
 OBJDIR=$(WORKDIR)objects/
 CFILES=codexion.c\
-	   parsing.c\
-	   utils.c
+	   argument_validation.c\
+	   duplication.c\
+	   validation.c
 OFILES=$(CFILES:%.c=$(OBJDIR)%.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJDIR) $(OFILES)
 	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
+
+$(OBJDIR)%.o: $(WORKDIR)utils/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJDIR)%.o: $(WORKDIR)parsing/%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR)%.o: $(WORKDIR)%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
