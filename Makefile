@@ -3,24 +3,29 @@ CC=cc
 CFLAGS=-Wall -Wextra -Werror -pthread
 WORKDIR=quantum/
 OBJDIR=$(WORKDIR)objects/
-CFILES=
-OFILES=$(FILES:%.c=$(OBJDIR)%.o)
+CFILES=codexion.c\
+	   parsing.c\
+	   utils.c
+OFILES=$(CFILES:%.c=$(OBJDIR)%.o)
 
 all: $(NAME)
 
-$(NAME): $(OFILES)
-	$(CC) $(CFLAGS) $(CFILES) -o $(NAME)
+$(NAME): $(OBJDIR) $(OFILES)
+	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
 
-$(OBJDIR)%.o: %.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $(CFILES) -o $(OFILES)
+$(OBJDIR)%.o: $(WORKDIR)%.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
 	mkdir $(OBJDIR)
 
 clean:
+	rm -rf $(OBJDIR)
 
 fclean:
+	rm -rf $(OBJDIR)
+	rm $(NAME)
 
-re:
+re: fclean all
 
-.PHONY:
+.PHONY: all clean fclean re
