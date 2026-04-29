@@ -5,6 +5,8 @@
 ## Instructions
 
 ## Resources
+	https://franckh.developpez.com/tutoriels/posix/pthreads/
+	https://tala-informatique.fr/index.php?title=C_pthread
 
 ## Blocking cases handled
 
