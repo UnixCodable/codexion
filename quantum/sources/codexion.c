@@ -6,11 +6,11 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 13:27:54 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/30 01:38:05 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/30 14:25:52 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "headers/codexion.h"
+#include "../includes/codexion.h"
 
 void	*print_things(void	*data)
 {
@@ -26,6 +26,12 @@ void	quantum_manager(void)
 	pthread_create(&client, NULL, print_things, NULL);
 	pthread_join(client, NULL);
 	return ;
+}
+
+int	raise_error(void)
+{
+	fprintf(stderr, "\033[1;31mError while validating arguments.\033[0m\n");
+	return (-1);
 }
 
 int	main(int ac, char **av)

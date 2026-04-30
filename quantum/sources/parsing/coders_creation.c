@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   validation.c                                       :+:      :+:    :+:   */
+/*   coders_creation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/29 17:26:44 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 17:45:19 by lbordana         ###   ########.fr       */
+/*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
+/*   Updated: 2026/04/30 16:13:44 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/codexion.h"
+#include "../../includes/codexion.h"
 
-bool	is_number(char *arg)
+t_coders	*coders_board(struct s_codex_data *data)
 {
-	while (*arg != '\0')
+	t_coders	*board;
+	int			pos;
+
+	pos = 0;
+	board = malloc(sizeof(t_coders) * data->number_of_coders);
+	while (pos < data->number_of_coders)
 	{
-		if (*arg >= '0' && *arg <= '9')
-			arg++;
-		else
-			return (false);
+		board[pos].dongle_left = NULL;
+		board[pos].dongle_right = NULL;
+		pos++;
+		board[pos].pos = pos;
 	}
-	return (true);
+	return (board);
 }

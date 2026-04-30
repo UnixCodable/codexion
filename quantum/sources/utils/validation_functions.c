@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   args_validation.c                                  :+:      :+:    :+:   */
+/*   is_number.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/29 17:34:14 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 20:57:52 by lbordana         ###   ########.fr       */
+/*   Created: 2026/04/29 17:26:44 by lbordana          #+#    #+#             */
+/*   Updated: 2026/04/30 14:05:02 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/codexion.h"
+#include "../../includes/codexion.h"
 
-int	raise_error(void)
+bool	is_number(char *arg)
 {
-	fprintf(stderr, "\033[1;31mError while validating arguments.\033[0m\n");
-	return (-1);
-}
-
-bool	validate_arguments(char **args)
-{
-	while ((args + 1)[0] != NULL)
+	while (*arg != '\0')
 	{
-		if (is_number(*args) == false || atoi(*args) < 0)
+		if (*arg >= '0' && *arg <= '9')
+			arg++;
+		else
 			return (false);
-		args++;
 	}
-	if (strcmp(*args, "fifo") == 0 || strcmp(*args, "edf") == 0)
-		return (true);
-	return (false);
+	return (true);
 }

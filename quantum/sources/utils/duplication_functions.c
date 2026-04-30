@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   duplication.c                                      :+:      :+:    :+:   */
+/*   duplication_functions.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 13:17:19 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/29 20:31:20 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/30 14:04:49 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../headers/codexion.h"
+#include "../../includes/codexion.h"
 
 char	*ft_strdup(const char *s)
 {

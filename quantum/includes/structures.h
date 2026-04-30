@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/30 00:55:37 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/04/30 15:38:02 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ struct s_codex_data
 	char	*scheduler;
 };
 
-typedef struct s_codex_list
+typedef struct s_codex_coder
 {
-	int					position;
-	pthread_t			coder;
-	struct s_codex_list	*next;
-	struct s_codex_list	*previous;
-}	t_codex_list;
+	pthread_t	coder;
+	int			pos;
+	bool		*dongle_left;
+	bool		*dongle_right;
+}	t_coders;
 
 #endif

@@ -1,13 +1,13 @@
 NAME=codexion
 CC=cc
 CFLAGS=-Wall -Wextra -Werror -pthread
-WORKDIR=quantum/
-OBJDIR=$(WORKDIR)objects/
+WORKDIR=quantum/sources/
+OBJDIR=quantum/objects/
 CFILES=codexion.c\
 	   args_validation.c\
 	   struct_organizer.c\
-	   duplication.c\
-	   validation.c
+	   duplication_functions.c\
+	   validation_functions.c
 OFILES=$(CFILES:%.c=$(OBJDIR)%.o)
 
 all: $(NAME)
