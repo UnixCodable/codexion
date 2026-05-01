@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:34:14 by lbordana          #+#    #+#             */
-/*   Updated: 2026/04/30 14:09:32 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/01 00:11:01 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ bool	validate_arguments(char **args)
 {
 	while ((args + 1)[0] != NULL)
 	{
-		if (is_number(*args) == false || atoi(*args) < 0)
+		if (is_number(*args) == false || atoi(*args) < 1)
 			return (false);
 		args++;
 	}

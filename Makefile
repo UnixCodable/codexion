@@ -5,7 +5,8 @@ WORKDIR=quantum/sources/
 OBJDIR=quantum/objects/
 CFILES=codexion.c\
 	   args_validation.c\
-	   struct_organizer.c\
+	   args_organizer.c\
+	   coders_creation.c\
 	   duplication_functions.c\
 	   validation_functions.c
 OFILES=$(CFILES:%.c=$(OBJDIR)%.o)
