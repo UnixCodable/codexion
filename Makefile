@@ -4,6 +4,7 @@ CFLAGS=-Wall -Wextra -Werror -pthread
 WORKDIR=quantum/sources/
 OBJDIR=quantum/objects/
 CFILES=codexion.c\
+	   manager.c\
 	   args_validation.c\
 	   args_organizer.c\
 	   coders_creation.c\
