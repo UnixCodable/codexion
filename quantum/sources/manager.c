@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/02 18:38:33 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/03 10:58:16 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	*quantum_code(void *coders)
 {
-	int	i;
-
-	i = 0;
 	(void) coders;
-	while (i != 100)
-		fprintf(stderr, "Hello from %d\n", i++);
+	while (((t_coders *)coders)[0].running == true)
+	{
+		compile();
+		debug();
+		refactor();
+	}
 	return ((int)0);
 }
 

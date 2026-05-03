@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/02 02:17:53 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/03 10:49:38 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ typedef struct s_codex_coder
 	int			pos;
 	bool		*dongle_left;
 	bool		*dongle_right;
+	bool		running;
 }	t_coders;
 
 struct s_codex_data
