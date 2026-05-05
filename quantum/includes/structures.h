@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/03 16:15:26 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/06 00:40:06 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,5 @@ struct s_codex_data
 	int			dongle_cooldown;
 	char		*scheduler;
 };
-
-struct s_codex_args
-{
-	t_coders			*coders;
-	struct s_codex_data	*data;
-};
-
 
 #endif

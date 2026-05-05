@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/02 03:24:15 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/05 16:07:18 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ t_coders	*coders_board(struct s_codex_data *data)
 
 	pos = 0;
 	board = malloc(sizeof(t_coders) * data->number_of_coders);
-	if (!board)
-		return (NULL);
 	dongles = malloc(sizeof(bool) * data->number_of_coders);
-	if (!dongles)
+	if (!dongles || !board)
 		return (NULL);
 	while (pos < data->number_of_coders)
 		dongles[pos++] = false;

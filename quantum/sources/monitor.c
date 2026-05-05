@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 20:55:11 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/03 09:50:53 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/05 18:15:34 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*monitor_function(void *data)
 		gettimeofday(&end_val, NULL);
 		monitoring_time = ((end_val.tv_sec * 1000) + end_val.tv_usec / 1000) -\
 ((start_val.tv_sec * 1000) + start_val.tv_usec / 1000);
-		printf("%ld\n", monitoring_time);
+		(void) monitoring_time;
 		if (i < 0)
 			break ;
 		i--;

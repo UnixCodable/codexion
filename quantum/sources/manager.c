@@ -6,20 +6,43 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/04 00:08:37 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/05 23:50:18 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/codexion.h"
 
+bool	refactor(int thread)
+{
+	(void) thread;
+	return (true);
+}
+
+bool	debug(int thread)
+{
+	(void) thread;
+	return (true);
+}
+
+bool	compile(int thread)
+{
+	(void) thread;
+	return (true);
+}
+
 void	*quantum_code(void *coders)
 {
-	(void) coders;
-	while (((t_coders *)coders)[0].running == true)
+	int				thread;
+	int				i = 0;
+
+	thread = ((t_coders *)coders)->pos;
+	fprintf(stderr, "%d\n", thread);
+	while (i < 100)
 	{
-		compile();
-		debug();
-		refactor();
+		compile(thread);
+		debug(thread);
+		refactor(thread);
+		i++;
 	}
 	return ((int)0);
 }
@@ -27,20 +50,16 @@ void	*quantum_code(void *coders)
 int	start_manager(struct s_codex_data *data, t_coders *coders)
 {
 	pthread_t			monitoring;
-	struct s_codex_args	args;
 	int					pos;
 
 	pos = 0;
-	args.coders = coders;
-	args.data = data;
-	pthread_create(&monitoring, NULL, monitor_function, &args);
+	pthread_create(&monitoring, NULL, monitor_function, &data);
 	while (pos < data->number_of_coders)
 	{
 		pthread_create(&coders[pos].coder, NULL, quantum_code, &coders[pos]);
 		pos++;
 	}
 	pthread_join(monitoring, NULL);
-	pos = 0;
 	while (pos < data->number_of_coders)
 	{
 		pthread_join(coders[pos].coder, NULL);
@@ -48,3 +67,9 @@ int	start_manager(struct s_codex_data *data, t_coders *coders)
 	}
 	return (0);
 }
+
+/*
+	Si ajout des data à chaque coder:
+	- Ok pour envoie adresse coder en cours
+	-
+*/
