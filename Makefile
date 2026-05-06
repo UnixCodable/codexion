@@ -10,7 +10,8 @@ CFILES=codexion.c\
 	   args_organizer.c\
 	   coders_creation.c\
 	   duplication_functions.c\
-	   validation_functions.c
+	   validation_functions.c\
+	   mutex_functions.c
 OFILES=$(CFILES:%.c=$(OBJDIR)%.o)
 
 all: $(NAME)

@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 20:55:11 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/05 18:15:34 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/06 11:20:47 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,5 @@ void	*monitor_function(void *data)
 			break ;
 		i--;
 	}
-	return ((int)0);
+	return ((int *) 1);
 }

@@ -6,15 +6,15 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:56:37 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/02 02:28:21 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/06 13:19:39 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
 
-struct s_codex_data	arguments_organizer(char **args)
+t_data	arguments_organizer(char **args)
 {
-	struct s_codex_data	data;
+	t_data	data;
 
 	data.number_of_coders = atoi(args[0]);
 	data.number_of_dongle = atoi(args[0]);
@@ -25,6 +25,8 @@ struct s_codex_data	arguments_organizer(char **args)
 	data.number_of_compiles_required = atoi(args[5]);
 	data.dongle_cooldown = atoi(args[6]);
 	data.scheduler = args[7];
+	pthread_mutex_init(&data.mutex, NULL);
+
 
 	return (data);
 }

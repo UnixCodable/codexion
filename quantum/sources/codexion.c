@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 13:27:54 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/02 03:24:00 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/06 12:07:52 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	raise_error(int error_code)
 
 int	main(int ac, char **av)
 {
-	struct s_codex_data	data;
+	t_data	data;
 	t_coders			*board;
 
 	av++;
