@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/06 12:07:52 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/08 14:21:29 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_coders	*coders_board(t_data *data)
 		board[pos].dongle_left = &dongles[pos];
 		board[pos].dongle_right = &dongles[pos + 1];
 		board[pos].pos = pos + 1;
+		board[pos].data = data;
 		pos++;
 	}
 	return (board);

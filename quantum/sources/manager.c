@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/06 17:31:47 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/08 14:32:58 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,16 @@ bool	compile(int thread)
 	return (true);
 }
 
-void	*quantum_code(void *data)
+void	*quantum_code(void *coder)
 {
 	int					i = 0;
-	int 				thread = ((t_data *)data)->working_thread;
 
-	m_print((t_data *)data, thread, i, "is running.\n");
-	while (i < 100)
+	while (i < 10)
 	{
-		compile(thread);
-		debug(thread);
-		refactor(thread);
+		m_print(((t_coders *)coder)->data, ((t_coders *)coder)->pos, i, "is running.\n");
+		compile(((t_coders *)coder)->pos);
+		debug(((t_coders *)coder)->pos);
+		refactor(((t_coders *)coder)->pos);
 		i++;
 	}
 	return ((int *) 1);
@@ -52,12 +51,10 @@ int	start_manager(t_data *data, t_coders *coders)
 	int					pos;
 
 	pos = 0;
-	data->working_thread = 0;
 	pthread_create(&monitoring, NULL, monitor_function, &data);
 	while (pos < data->number_of_coders)
 	{
-		pthread_create(&coders[pos].coder, NULL, quantum_code, data);
-		data->working_thread = pos;
+		pthread_create(&coders[pos].coder, NULL, quantum_code, &coders[pos]);
 		pos++;
 	}
 	pos = 0;
@@ -69,9 +66,3 @@ int	start_manager(t_data *data, t_coders *coders)
 	}
 	return (0);
 }
-
-/*
-	Si ajout des data à chaque coder:
-	- Ok pour envoie adresse coder en cours
-	-
-*/
