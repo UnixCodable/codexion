@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/08 14:23:07 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/09 12:58:40 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef struct s_codex_data
 
 typedef struct s_codex_coder
 {
-	pthread_t	coder;
-	int			pos;
-	bool		*dongle_left;
-	bool		*dongle_right;
-	bool		running;
-	t_data		*data;
+	pthread_t			coder;
+	int					pos;
+	pthread_mutex_t		*dongle_left;
+	pthread_mutex_t		*dongle_right;
+	bool				running;
+	t_data				*data;
 }	t_coders;
 
 #endif

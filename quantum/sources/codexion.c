@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 13:27:54 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/06 12:07:52 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/09 14:24:56 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ int	raise_error(int error_code)
 		fprintf(stderr, "\033[1;31mError while validating arguments.\033[0m\n");
 	if (error_code == 2)
 		fprintf(stderr, "\033[1;31mError while allocating memory.\033[0m\n");
-	return (-1);
+	return (EXIT_FAILURE);
 }
 
 int	main(int ac, char **av)
 {
-	t_data	data;
-	t_coders			*board;
+	t_data		data;
+	t_coders	*board;
 
 	av++;
 	if (ac != 9 || validate_arguments(av) == false)
@@ -34,7 +34,7 @@ int	main(int ac, char **av)
 	if (!board)
 		return (raise_error(2));
 	start_manager(&data, board);
-	free(board[0].dongle_left);
+	free(board->dongle_left);
 	free(board);
 	return (EXIT_SUCCESS);
 }

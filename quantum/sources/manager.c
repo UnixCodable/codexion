@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/08 14:32:58 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/09 14:29:09 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ bool	compile(int thread)
 
 void	*quantum_code(void *coder)
 {
-	int					i = 0;
+	int					i;
 
+	i = 0;
 	while (i < 10)
 	{
-		m_print(((t_coders *)coder)->data, ((t_coders *)coder)->pos, i, "is running.\n");
-		compile(((t_coders *)coder)->pos);
-		debug(((t_coders *)coder)->pos);
-		refactor(((t_coders *)coder)->pos);
+		compile((t_coders *)coder);
+		debug((t_coders *)coder);
+		refactor((t_coders *)coder);
 		i++;
 	}
 	return ((int *) 1);
