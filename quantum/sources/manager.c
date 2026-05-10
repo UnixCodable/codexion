@@ -6,36 +6,41 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/09 14:29:09 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/10 01:57:21 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/codexion.h"
 
-bool	refactor(int thread)
+bool	refactor(t_coders *thread)
 {
-	(void) thread;
+	m_print(12442, thread->pos, "is refactoring...");
+	usleep(thread->data->time_to_refactor * 1000);
 	return (true);
 }
 
-bool	debug(int thread)
+bool	debug(t_coders *thread)
 {
-	(void) thread;
+	m_print(12442, thread->pos, "is debugging...");
+	usleep(thread->data->time_to_debug * 1000);
 	return (true);
 }
 
-bool	compile(int thread)
+bool	compile(t_coders *thread)
 {
-	(void) thread;
+	m_dongles_lock(1, thread);
+	usleep(thread->data->time_to_compile * 1000);
+	m_print(12442, thread->pos, "is compiling...");
+	m_dongles_unlock(thread);
 	return (true);
 }
 
 void	*quantum_code(void *coder)
 {
-	int					i;
+	int	i;
 
 	i = 0;
-	while (i < 10)
+	while (i < ((t_coders *)coder)->data->number_of_compiles_required)
 	{
 		compile((t_coders *)coder);
 		debug((t_coders *)coder);

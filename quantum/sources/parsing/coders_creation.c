@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/09 14:18:10 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/09 22:26:52 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ t_coders	*coders_board(t_data *data)
 	while (pos < data->number_of_coders)
 	{
 		board[pos].dongle_left = &dongles[pos];
-		board[pos].dongle_right = &dongles[pos + 1];
+		if (pos + 1 < data->number_of_coders)
+			board[pos].dongle_right = &dongles[pos + 1];
+		else
+			board[pos].dongle_right = &dongles[0];
 		board[pos].pos = pos + 1;
 		board[pos].data = data;
 		pos++;

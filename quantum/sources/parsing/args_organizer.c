@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:56:37 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/06 13:19:39 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/10 00:45:38 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_data	arguments_organizer(char **args)
 	data.number_of_compiles_required = atoi(args[5]);
 	data.dongle_cooldown = atoi(args[6]);
 	data.scheduler = args[7];
-	pthread_mutex_init(&data.mutex, NULL);
 
 
 	return (data);
