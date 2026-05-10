@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/10 11:50:05 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/10 15:10:59 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ typedef struct s_codex_data
 {
 	uint8_t			number_of_coders;
 	uint8_t			number_of_dongle;
-	unsigned int	time_to_burnout;
-	unsigned int	time_to_compile;
-	unsigned int	time_to_debug;
-	unsigned int	time_to_refactor;
-	unsigned int	number_of_compiles_required;
-	unsigned int	dongle_cooldown;
+	uint16_t		time_to_burnout;
+	uint16_t		time_to_compile;
+	uint16_t		time_to_debug;
+	uint16_t		time_to_refactor;
+	uint16_t		number_of_compiles_required;
+	uint16_t		dongle_cooldown;
 	struct timeval	timer_start;
 	char			*scheduler;
 }	t_data;
