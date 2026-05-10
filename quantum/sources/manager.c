@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/10 11:15:44 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/11 00:14:45 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,28 +32,29 @@ bool	compile(t_coders *thread)
 	m_print(thread, "is compiling...");
 	usleep(thread->data->time_to_compile * 1000);
 	m_dongles_unlock(thread);
+	gettimeofday(&thread->last_compile_start, NULL);
 	return (true);
 }
 
 void	*quantum_code(void *coder)
 {
-	unsigned int			i;
+	uint16_t	comp;
 
-	i = 0;
-	while (i < ((t_coders *)coder)->data->number_of_compiles_required)
+	comp = 0;
+	while (comp < ((t_coders *)coder)->data->number_of_compiles_required)
 	{
 		compile((t_coders *)coder);
 		debug((t_coders *)coder);
 		refactor((t_coders *)coder);
-		i++;
+		comp++;
 	}
 	return ((int *) 1);
 }
 
 int	start_manager(t_data *data, t_coders *coders)
 {
-	pthread_t		monitoring;
-	unsigned int	pos;
+	pthread_t	monitoring;
+	uint8_t		pos;
 
 	pos = 0;
 	pthread_create(&monitoring, NULL, monitor_function, &data);
