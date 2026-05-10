@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/09 22:26:52 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/10 11:29:03 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_coders	*coders_board(t_data *data)
 {
 	t_coders		*board;
 	pthread_mutex_t	*dongles;
-	int				pos;
+	uint8_t			pos;
 
 	pos = 0;
 	board = malloc(sizeof(t_coders) * data->number_of_coders);

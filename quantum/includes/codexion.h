@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 13:34:05 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/02 18:26:38 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/10 11:25:40 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
+# include <stdint.h>
 # include <time.h>
 # include <pthread.h>
 # include <string.h>
