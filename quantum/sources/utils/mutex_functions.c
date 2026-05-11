@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/10 11:28:04 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/11 14:09:21 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	m_print(t_coders *thread, char *str)
 
 void	m_dongles_lock(t_coders *thread)
 {
+	while (!thread->dongle_left)
+		;
 	pthread_mutex_lock(thread->dongle_right);
 	pthread_mutex_lock(thread->dongle_left);
 	printf("%ld %d has taken a dongle\n", m_time(thread->data), thread->pos);
