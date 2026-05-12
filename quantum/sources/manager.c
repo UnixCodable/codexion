@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/11 00:14:45 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/11 15:37:48 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	refactor(t_coders *thread)
 {
-	m_print(thread, "is refactoring...");
+	// m_print(thread, "is refactoring...");
 	usleep(thread->data->time_to_refactor * 1000);
 	return (true);
 }
@@ -29,7 +29,7 @@ bool	debug(t_coders *thread)
 bool	compile(t_coders *thread)
 {
 	m_dongles_lock(thread);
-	m_print(thread, "is compiling...");
+	// m_print(thread, "is compiling...");
 	usleep(thread->data->time_to_compile * 1000);
 	m_dongles_unlock(thread);
 	gettimeofday(&thread->last_compile_start, NULL);
