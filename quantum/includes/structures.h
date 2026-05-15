@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/11 00:04:59 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/15 03:11:26 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 typedef struct s_codex_data		t_data;
 typedef struct s_codex_coder	t_coders;
+typedef struct s_codex_dongle	t_dongle;
 
 struct s_codex_data
 {
@@ -35,11 +36,16 @@ struct s_codex_coder
 {
 	pthread_t			coder;
 	uint8_t				pos;
-	pthread_mutex_t		*dongle_left;
-	pthread_mutex_t		*dongle_right;
-	struct timeval		last_compile_start;
-	struct timeval		last_compile_stop;
+	t_dongle			*dongle_left;
+	t_dongle			*dongle_right;
+	uint64_t			last_compile;
 	t_data				*data;
+};
+
+struct s_codex_dongle
+{
+	pthread_mutex_t		dongle;
+	uint8_t				is_locked;
 };
 
 #endif

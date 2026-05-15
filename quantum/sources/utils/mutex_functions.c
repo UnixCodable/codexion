@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/11 15:51:33 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/15 03:17:08 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,24 @@ void	m_print(t_coders *thread, char *str)
 
 void	m_dongles_lock(t_coders *thread)
 {
-	while (!thread->dongle_right)
-		printf("HERE\n");
-	pthread_mutex_lock(thread->dongle_left);
+	while (thread->dongle_right->is_locked == 1)
+		if (m_time(thread->data) - thread->last_compile > thread->data->time_to_burnout)
+			m_print(thread, "burned out.");
+	pthread_mutex_lock(&thread->dongle_left->dongle);
 	printf("%ld %d has taken a dongle\n", m_time(thread->data), thread->pos);
-	pthread_mutex_lock(thread->dongle_right);
+	thread->dongle_left->is_locked = 1;
+	pthread_mutex_lock(&thread->dongle_right->dongle);
 	printf("%ld %d has taken a dongle\n", m_time(thread->data), thread->pos);
+	thread->dongle_right->is_locked = 1;
 }
 
 void	m_dongles_unlock(t_coders *thread)
 {
 	usleep(thread->data->dongle_cooldown * 1000);
-	pthread_mutex_unlock(thread->dongle_left);
-	pthread_mutex_unlock(thread->dongle_right);
+	pthread_mutex_unlock(&thread->dongle_left->dongle);
+	thread->dongle_left->is_locked = 0;
+	pthread_mutex_unlock(&thread->dongle_right->dongle);
+	thread->dongle_right->is_locked = 0;
 }
 
 uint64_t	m_time(t_data *data)

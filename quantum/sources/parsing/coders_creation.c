@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/11 10:33:35 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/15 03:11:08 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,20 @@
 
 t_coders	*coders_board(t_data *data)
 {
-	t_coders		*board;
-	pthread_mutex_t	*dongles;
-	uint8_t			pos;
+	t_coders	*board;
+	t_dongle	*dongles;
+	uint8_t		pos;
 
 	pos = 0;
 	board = malloc(sizeof(t_coders) * data->number_of_coders);
-	dongles = malloc(sizeof(pthread_mutex_t) * data->number_of_coders);
+	dongles = malloc(sizeof(t_dongle) * data->number_of_coders);
 	if (!dongles || !board)
 		return (NULL);
 	while (pos < data->number_of_coders)
-		pthread_mutex_init(&dongles[pos++], NULL);
+	{
+		pthread_mutex_init(&dongles[pos].dongle, NULL);
+		dongles[pos++].is_locked = 0;
+	}
 	pos = 0;
 	while (pos < data->number_of_coders)
 	{
@@ -35,6 +38,7 @@ t_coders	*coders_board(t_data *data)
 			board[pos].dongle_right = &dongles[0];
 		board[pos].pos = pos + 1;
 		board[pos].data = data;
+		board[pos].last_compile = m_time(data);
 		pos++;
 	}
 	return (board);
