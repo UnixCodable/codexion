@@ -6,30 +6,16 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 20:55:11 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/06 11:20:47 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/15 15:37:08 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/codexion.h"
 
-void	*monitor_function(void *data)
+void	*monitor_function(void *data_addr)
 {
-	struct timeval		start_val;
-	struct timeval		end_val;
-	unsigned long int	monitoring_time;
-	int					i = 1000;
+	t_data	*data;
 
-	(void) data;
-	gettimeofday(&start_val, NULL);
-	while (true)
-	{
-		gettimeofday(&end_val, NULL);
-		monitoring_time = ((end_val.tv_sec * 1000) + end_val.tv_usec / 1000) -\
-((start_val.tv_sec * 1000) + start_val.tv_usec / 1000);
-		(void) monitoring_time;
-		if (i < 0)
-			break ;
-		i--;
-	}
-	return ((int *) 1);
+	data = (t_data *)data;
+	return ((bool *)true);
 }

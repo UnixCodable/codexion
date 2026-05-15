@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/15 03:24:44 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/15 13:33:06 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	*quantum_code(void *coder)
 		refactor((t_coders *)coder);
 		comp++;
 	}
-	return ((int *) 1);
+	return ((bool *)true);
 }
 
 int	start_manager(t_data *data, t_coders *coders)
