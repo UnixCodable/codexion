@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/15 03:17:08 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/17 00:31:47 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	m_print(t_coders *thread, char *str)
 
 void	m_dongles_lock(t_coders *thread)
 {
-	while (thread->dongle_right->is_locked == 1)
+	while (scheduler(thread) == false)
 		if (m_time(thread->data) - thread->last_compile > thread->data->time_to_burnout)
 			m_print(thread, "burned out.");
 	pthread_mutex_lock(&thread->dongle_left->dongle);

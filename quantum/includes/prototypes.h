@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:43:40 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/10 15:04:23 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/16 19:12:16 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 bool				validate_arguments(char **args);
 bool				is_num(char *arg);
+bool				scheduler(t_coders *thread);
 t_data				arguments_organizer(char **args);
 t_coders			*coders_board(t_data *data);
 int					start_manager(t_data *data, t_coders *coders);
