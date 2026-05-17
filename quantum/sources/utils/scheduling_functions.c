@@ -6,24 +6,42 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/17 01:50:31 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/18 00:12:22 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
 
-void	s_swap(t_coders *heap)
+void	s_swap(t_coders **heap)
 {
+	t_coders	*temp;
+
+	temp = heap[0];
+	heap[0] = heap[1];
+	heap[1] = temp;
 	return ;
 }
 
-void	s_add(t_coders *heap)
+void	s_add(t_coders *thread, t_coders **heap)
 {
+	if (heap[0] && heap[0]->pos == thread->pos)
+		return ;
+	if (!heap[0])
+		heap[0] = thread;
+	else if (!heap[1])
+		heap[1] = thread;
 	return ;
 }
 
-void	s_pop(t_coders *heap)
+void	s_pop(t_coders *thread, t_coders **heap)
 {
+	if (heap[0]->pos == thread->pos)
+	{
+		s_swap(heap);
+		heap[1] = NULL;
+	}
+	else if (heap[1]->pos == thread->pos)
+		heap[1] = NULL;
 	return ;
 }
 
@@ -31,14 +49,20 @@ bool	scheduler(t_coders *thread)
 {
 	if (strcmp(thread->data->scheduler, "fifo") == 0)
 	{
-		s_add(thread->dongle_left->priority_queue);
-		s_add(thread->dongle_left->priority_queue);
+		s_add(thread, thread->dongle_left->priority_queue);
+		s_add(thread, thread->dongle_right->priority_queue);
+		if (thread->dongle_right->priority_queue[0]->pos == thread->pos)
+		{
+			s_pop(thread, thread->dongle_left->priority_queue);
+			s_pop(thread, thread->dongle_right->priority_queue);
+			return (true);
+		}
 		return (false);
 	}
 	if (strcmp(thread->data->scheduler, "edf") == 0)
 	{
-		s_add(thread->dongle_left->priority_queue);
-		s_add(thread->dongle_left->priority_queue);
+		s_add(thread, thread->dongle_left->priority_queue);
+		s_add(thread, thread->dongle_right->priority_queue);
 		return (false);
 	}
 	return (true);
