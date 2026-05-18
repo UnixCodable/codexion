@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/18 14:15:26 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/18 20:04:19 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,27 @@ void	m_print(t_coders *thread, t_data *data, char *str)
 
 void	m_dongles_lock(t_coders *thread, t_data *data)
 {
-	while (thread->dongle_right->is_locked == 1)
+	while (scheduler(thread, data) == false)
 		if (m_time(data) - thread->last_compile > data->time_to_burnout)
 			m_print(thread, data, "burned out.");
-	pthread_mutex_lock(&thread->dongle_left->dongle);
-	printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
-	thread->dongle_left->is_locked = 1;
-	pthread_mutex_lock(&thread->dongle_right->dongle);
-	printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
-	thread->dongle_right->is_locked = 1;
+	if (thread->pos % 2 == 0)
+	{
+		pthread_mutex_lock(&thread->dongle_right->dongle);
+		printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
+		thread->dongle_left->is_locked = 1;
+		pthread_mutex_lock(&thread->dongle_left->dongle);
+		printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
+		thread->dongle_right->is_locked = 1;
+	}
+	else
+	{
+		pthread_mutex_lock(&thread->dongle_left->dongle);
+		printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
+		thread->dongle_left->is_locked = 1;
+		pthread_mutex_lock(&thread->dongle_right->dongle);
+		printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
+		thread->dongle_right->is_locked = 1;
+	}
 }
 
 void	m_dongles_unlock(t_coders *thread, t_data *data)
