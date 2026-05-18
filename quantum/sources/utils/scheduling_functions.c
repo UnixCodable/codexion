@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/18 00:17:34 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/18 11:42:04 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	s_pop(t_coders *thread, t_coders **heap)
 	return ;
 }
 
-bool	scheduler(t_coders *thread)
+bool	scheduler(t_coders *thread, t_data *data)
 {
-	if (strcmp(thread->data->scheduler, "fifo") == 0)
+	if (strcmp(data->scheduler, "fifo") == 0)
 	{
 		s_add(thread, thread->dongle_left->priority_queue);
 		s_add(thread, thread->dongle_right->priority_queue);
@@ -59,7 +59,7 @@ bool	scheduler(t_coders *thread)
 		}
 		return (false);
 	}
-	if (strcmp(thread->data->scheduler, "edf") == 0)
+	if (strcmp(data->scheduler, "edf") == 0)
 	{
 		s_add(thread, thread->dongle_left->priority_queue);
 		s_add(thread, thread->dongle_right->priority_queue);

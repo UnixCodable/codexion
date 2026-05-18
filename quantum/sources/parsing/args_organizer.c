@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:56:37 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/10 11:07:02 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/18 12:45:36 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ t_data	arguments_organizer(char **args)
 	data.number_of_compiles_required = atoi(args[5]);
 	data.dongle_cooldown = atoi(args[6]);
 	data.scheduler = args[7];
+	data.ended_coders = 0;
 	gettimeofday(&data.timer_start, NULL);
 
 

@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/18 00:17:39 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/18 11:40:10 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_coders	*coders_board(t_data *data)
 		else
 			board[pos].dongle_right = &dongles[0];
 		board[pos].pos = pos + 1;
-		board[pos].data = data;
 		board[pos].last_compile = m_time(data);
 		pos++;
 	}

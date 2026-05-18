@@ -6,69 +6,75 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/15 13:33:06 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/18 13:41:48 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/codexion.h"
 
-bool	refactor(t_coders *thread)
+bool	refactor(t_coders *thread, t_data *data)
 {
-	m_print(thread, "is refactoring...");
-	usleep(thread->data->time_to_refactor * 1000);
+	m_print(thread, data, "is refactoring...");
+	usleep(data->time_to_refactor * 1000);
 	return (true);
 }
 
-bool	debug(t_coders *thread)
+bool	debug(t_coders *thread, t_data *data)
 {
-	m_print(thread, "is debugging...");
-	usleep(thread->data->time_to_debug * 1000);
+	m_print(thread, data, "is debugging...");
+	usleep(data->time_to_debug * 1000);
 	return (true);
 }
 
-bool	compile(t_coders *thread)
+bool	compile(t_coders *thread, t_data *data)
 {
-	m_dongles_lock(thread);
-	m_print(thread, "is compiling...");
-	thread->last_compile = m_time(thread->data);
-	usleep(thread->data->time_to_compile * 1000);
-	m_dongles_unlock(thread);
+	m_dongles_lock(thread, data);
+	m_print(thread, data, "is compiling...");
+	thread->last_compile = m_time(data);
+	usleep(data->time_to_compile * 1000);
+	m_dongles_unlock(thread, data);
 	return (true);
 }
 
-void	*quantum_code(void *coder)
+void	*quantum_code(void *zip)
 {
-	uint16_t	comp;
+	uint16_t		comp;
+	t_data			*data;
+	t_coders		*coder;
 
 	comp = 0;
-	while (comp < ((t_coders *)coder)->data->number_of_compiles_required)
+	data = ((t_zip *)zip)->data;
+	coder = ((t_zip *)zip)->coders;
+	while (comp < data->number_of_compiles_required)
 	{
-		compile((t_coders *)coder);
-		debug((t_coders *)coder);
-		refactor((t_coders *)coder);
+		compile(coder, data);
+		debug(coder, data);
+		refactor(coder, data);
 		comp++;
 	}
+	data->ended_coders += 1;
 	return ((bool *)true);
 }
 
-int	start_manager(t_data *data, t_coders *coders)
+bool	start_manager(t_data *data, t_coders *coders)
 {
+	t_zip		*zip;
 	pthread_t	monitoring;
 	uint8_t		pos;
 
 	pos = 0;
-	pthread_create(&monitoring, NULL, monitor_function, &data);
+	zip = malloc(data->number_of_coders * sizeof(t_zip));
+	if (!zip)
+		return (false);
+	pthread_create(&monitoring, NULL, monitor_function, data);
 	while (pos < data->number_of_coders)
 	{
-		pthread_create(&coders[pos].coder, NULL, quantum_code, &coders[pos]);
+		zip[pos].data = data;
+		zip[pos].coders = &coders[pos];
+		pthread_create(&coders[pos].coder, NULL, quantum_code, &zip[pos]);
 		pos++;
 	}
-	pos = 0;
 	pthread_join(monitoring, NULL);
-	while (pos < data->number_of_coders)
-	{
-		pthread_join(coders[pos].coder, NULL);
-		pos++;
-	}
-	return (0);
+	free(zip);
+	return (true);
 }

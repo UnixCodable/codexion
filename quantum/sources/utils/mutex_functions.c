@@ -6,37 +6,37 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/17 23:52:56 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/18 14:15:26 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
 
-void	m_print(t_coders *thread, char *str)
+void	m_print(t_coders *thread, t_data *data, char *str)
 {
 	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&mutex);
-	printf("%ld %d %s\n", m_time(thread->data), thread->pos, str);
+	printf("%ld %d %s\n", m_time(data), thread->pos, str);
 	pthread_mutex_unlock(&mutex);
 }
 
-void	m_dongles_lock(t_coders *thread)
+void	m_dongles_lock(t_coders *thread, t_data *data)
 {
-	while (thread->dongle_right->is_locked == 1 && scheduler(thread) == false)
-		if (m_time(thread->data) - thread->last_compile > thread->data->time_to_burnout)
-			m_print(thread, "burned out.");
+	while (thread->dongle_right->is_locked == 1)
+		if (m_time(data) - thread->last_compile > data->time_to_burnout)
+			m_print(thread, data, "burned out.");
 	pthread_mutex_lock(&thread->dongle_left->dongle);
-	printf("%ld %d has taken left dongle\n", m_time(thread->data), thread->pos);
+	printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
 	thread->dongle_left->is_locked = 1;
 	pthread_mutex_lock(&thread->dongle_right->dongle);
-	printf("%ld %d has taken right dongle\n", m_time(thread->data), thread->pos);
+	printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
 	thread->dongle_right->is_locked = 1;
 }
 
-void	m_dongles_unlock(t_coders *thread)
+void	m_dongles_unlock(t_coders *thread, t_data *data)
 {
-	usleep(thread->data->dongle_cooldown * 1000);
+	usleep(data->dongle_cooldown * 1000);
 	pthread_mutex_unlock(&thread->dongle_left->dongle);
 	thread->dongle_left->is_locked = 0;
 	pthread_mutex_unlock(&thread->dongle_right->dongle);
