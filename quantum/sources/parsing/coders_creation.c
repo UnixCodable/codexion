@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/18 11:40:10 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/19 00:01:46 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_coders	*coders_board(t_data *data)
 	while (pos < data->number_of_coders)
 	{
 		pthread_mutex_init(&dongles[pos].dongle, NULL);
+		pthread_mutex_init(&dongles[pos].dongle_heap, NULL);
 		dongles[pos++].is_locked = 0;
 	}
 	pos = 0;

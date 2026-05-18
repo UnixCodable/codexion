@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/18 20:04:19 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/19 01:16:44 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,19 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 			m_print(thread, data, "burned out.");
 	if (thread->pos % 2 == 0)
 	{
+		while (thread->dongle_left->is_locked == 1)
+			;
 		pthread_mutex_lock(&thread->dongle_right->dongle);
-		printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
+		printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
 		thread->dongle_left->is_locked = 1;
 		pthread_mutex_lock(&thread->dongle_left->dongle);
-		printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
+		printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
 		thread->dongle_right->is_locked = 1;
 	}
 	else
 	{
+		while (thread->dongle_right->is_locked == 1)
+			;
 		pthread_mutex_lock(&thread->dongle_left->dongle);
 		printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
 		thread->dongle_left->is_locked = 1;
