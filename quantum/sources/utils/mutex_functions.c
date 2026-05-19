@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/19 02:02:56 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/19 13:15:09 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	m_print(t_coders *thread, t_data *data, char *str)
 	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&mutex);
-	printf("\033[0;%dm %ld %d %s \033[0m\n", thread->pos + 30,
+	printf("\033[38;2;%d;%d;%dm %ld %d %s \033[0m\n", thread->pos * 51 % 120 * 2, thread->pos * 123 % 120 * 2, thread->pos * 43 % 120 * 2,
 		m_time(data), thread->pos, str);
 	pthread_mutex_unlock(&mutex);
 }
