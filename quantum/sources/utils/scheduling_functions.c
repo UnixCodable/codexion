@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/19 02:01:15 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/19 17:42:45 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,6 @@ void	s_pop(t_coders *thread, t_dongle *dongle)
 
 bool	scheduler(t_coders *thread, t_data *data)
 {
-	while (thread->dongle_right->is_locked == 1
-		|| thread->dongle_left->is_locked == 1)
-		;
 	s_add(thread, thread->dongle_left);
 	s_add(thread, thread->dongle_right);
 	if (strcmp(data->scheduler, "fifo") == 0)
