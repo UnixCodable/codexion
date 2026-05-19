@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/19 01:16:44 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/19 02:02:56 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,37 +17,25 @@ void	m_print(t_coders *thread, t_data *data, char *str)
 	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&mutex);
-	printf("%ld %d %s\n", m_time(data), thread->pos, str);
+	printf("\033[0;%dm %ld %d %s \033[0m\n", thread->pos + 30,
+		m_time(data), thread->pos, str);
 	pthread_mutex_unlock(&mutex);
 }
 
 void	m_dongles_lock(t_coders *thread, t_data *data)
 {
 	while (scheduler(thread, data) == false)
+	{
+		printf("FALSE\n");
 		if (m_time(data) - thread->last_compile > data->time_to_burnout)
 			m_print(thread, data, "burned out.");
-	if (thread->pos % 2 == 0)
-	{
-		while (thread->dongle_left->is_locked == 1)
-			;
-		pthread_mutex_lock(&thread->dongle_right->dongle);
-		printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
-		thread->dongle_left->is_locked = 1;
-		pthread_mutex_lock(&thread->dongle_left->dongle);
-		printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
-		thread->dongle_right->is_locked = 1;
 	}
-	else
-	{
-		while (thread->dongle_right->is_locked == 1)
-			;
-		pthread_mutex_lock(&thread->dongle_left->dongle);
-		printf("%ld %d has taken left dongle\n", m_time(data), thread->pos);
-		thread->dongle_left->is_locked = 1;
-		pthread_mutex_lock(&thread->dongle_right->dongle);
-		printf("%ld %d has taken right dongle\n", m_time(data), thread->pos);
-		thread->dongle_right->is_locked = 1;
-	}
+	pthread_mutex_lock(&thread->dongle_left->dongle);
+	m_print(thread, data, "has taken left dongle");
+	thread->dongle_left->is_locked = 1;
+	pthread_mutex_lock(&thread->dongle_right->dongle);
+	m_print(thread, data, "has taken right dongle");
+	thread->dongle_right->is_locked = 1;
 }
 
 void	m_dongles_unlock(t_coders *thread, t_data *data)
