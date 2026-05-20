@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/19 17:41:54 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/20 13:03:54 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,28 @@ void	m_print(t_coders *thread, t_data *data, char *str)
 
 void	m_dongles_lock(t_coders *thread, t_data *data)
 {
-	while (scheduler(thread, data) == false)
+	bool	unlock;
+
+	while (true)
 	{
-		if (m_time(data) - thread->last_compile > data->time_to_burnout)
-			m_print(thread, data, "burned out.");
+		unlock = scheduler(thread, data);
+		if (unlock == true)
+			break ;
 	}
-	pthread_mutex_lock(&thread->dongle_left->dongle);
-	m_print(thread, data, "has taken left dongle");
-	pthread_mutex_lock(&thread->dongle_right->dongle);
-	m_print(thread, data, "has taken right dongle");
+	if (thread->pos % 2 != 0)
+	{
+		pthread_mutex_lock(&thread->dongle_left->dongle);
+		m_print(thread, data, "has taken left dongle");
+		pthread_mutex_lock(&thread->dongle_right->dongle);
+		m_print(thread, data, "has taken right dongle");
+	}
+	else
+	{
+		pthread_mutex_lock(&thread->dongle_right->dongle);
+		m_print(thread, data, "has taken right dongle");
+		pthread_mutex_lock(&thread->dongle_left->dongle);
+		m_print(thread, data, "has taken left dongle");
+	}
 }
 
 void	m_dongles_unlock(t_coders *thread, t_data *data)

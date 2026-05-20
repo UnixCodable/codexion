@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/19 18:00:29 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:34:47 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,24 @@ bool	compile(t_coders *thread, t_data *data)
 
 void	*quantum_code(void *zip)
 {
-	uint16_t				comp;
 	t_data					*data;
 	t_coders				*coder;
+	uint16_t				comp;
 
-	comp = 0;
 	data = ((t_zip *)zip)->data;
 	coder = ((t_zip *)zip)->coders;
+	comp = 0;
 	while (data->running == false)
 		usleep(1);
-	while (true)
+	while (data->running == true)
 	{
 		compile(coder, data);
 		debug(coder, data);
 		refactor(coder, data);
 		comp++;
+		if (comp == data->number_of_compiles_required)
+			data->ended_coders += 1;
 	}
-	data->ended_coders += 1;
 	return ((bool *)true);
 }
 
@@ -78,6 +79,9 @@ bool	start_manager(t_data *data, t_coders *coders)
 	}
 	data->running = true;
 	pthread_join(monitoring, NULL);
+	pos = 0;
+	while (pos < data->number_of_coders)
+		pthread_join(coders[pos++].coder, NULL);
 	free(zip);
 	return (true);
 }

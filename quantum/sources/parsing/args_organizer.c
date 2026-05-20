@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:56:37 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/20 01:20:29 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:27:13 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ t_data	arguments_organizer(char **args)
 		.running = false
 	};
 
-	data.heap = malloc(sizeof(t_coders *) * data.number_of_coders);
 	gettimeofday(&data.timer_start, NULL);
 
 

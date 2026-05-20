@@ -5,40 +5,67 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/20 00:39:05 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/20 01:45:26 by lbordana         ###   ########.fr       */
+/*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
+/*   Updated: 2026/05/20 12:50:13 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
 
-void	s_pop(t_data *data, t_coders *coder)
+void	s_swap(t_dongle *dongle)
 {
-	uint8_t	pos;
+	t_coders	*temp;
 
-	pos = 0;
-	while (data->heap[pos]->pos == coder->pos)
-		pos++;
-	data->heap[pos] = NULL;
-	while (true)
+	temp = dongle->priority_queue[0];
+	dongle->priority_queue[0] = dongle->priority_queue[1];
+	dongle->priority_queue[1] = temp;
+	return ;
+}
+
+void	s_add(t_coders *thread, t_dongle *dongle)
+{
+	if ((dongle->priority_queue[0] && dongle->priority_queue[0]->pos == thread->pos) || (dongle->priority_queue[1] && dongle->priority_queue[1]->pos == thread->pos))
+		return ;
+	if (!dongle->priority_queue[0])
+		dongle->priority_queue[0] = thread;
+	else if (!dongle->priority_queue[1])
+		dongle->priority_queue[1] = thread;
+	return ;
+}
+
+void	s_pop(t_coders *thread, t_dongle *dongle)
+{
+	if (dongle->priority_queue[0]->pos == thread->pos)
 	{
-
+		s_swap(dongle);
+		dongle->priority_queue[1] = NULL;
 	}
+	else if (dongle->priority_queue[1]->pos == thread->pos)
+		dongle->priority_queue[1] = NULL;
+	return ;
 }
 
-
-void	s_add(t_data *data, t_coders *coder)
+bool	scheduler(t_coders *thread, t_data *data)
 {
-	uint8_t	pos;
-
-	pos = 0;
-	while (data->heap[pos] != NULL)
-		pos++;
-	data->heap[pos] = coder;
-}
-
-void	scheduler(t_data *data, t_coders *coders)
-{
-	while (data->running == true)
-		usleep(1);
+	pthread_mutex_lock(&thread->dongle_left->dongle_heap);
+	s_add(thread, thread->dongle_left);
+	s_add(thread, thread->dongle_right);
+	pthread_mutex_unlock(&thread->dongle_left->dongle_heap);
+	if (strcmp(data->scheduler, "fifo") == 0)
+	{
+		if (thread->dongle_right->priority_queue[0]->pos == thread->pos)
+		{
+			pthread_mutex_lock(&thread->dongle_left->dongle_heap);
+			s_pop(thread, thread->dongle_left);
+			s_pop(thread, thread->dongle_right);
+			pthread_mutex_unlock(&thread->dongle_left->dongle_heap);
+			return (true);
+		}
+		return (false);
+	}
+	if (strcmp(data->scheduler, "edf") == 0)
+	{
+		return (false);
+	}
+	return (true);
 }

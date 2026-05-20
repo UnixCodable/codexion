@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/20 01:20:38 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/20 12:13:46 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ struct s_codex_coder
 struct s_codex_dongle
 {
 	pthread_mutex_t		dongle;
+	pthread_mutex_t		dongle_heap;
 	t_coders			*priority_queue[2];
 };
 
