@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/20 12:34:47 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/21 00:55:32 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,20 @@ void	*quantum_code(void *zip)
 	data = ((t_zip *)zip)->data;
 	coder = ((t_zip *)zip)->coders;
 	comp = 0;
-	while (data->running == false)
+	while (m_retrieve_running_state(data) == false)
 		usleep(1);
-	while (data->running == true)
+	while (m_retrieve_running_state(data) == true)
 	{
 		compile(coder, data);
 		debug(coder, data);
 		refactor(coder, data);
 		comp++;
 		if (comp == data->number_of_compiles_required)
+		{
+			pthread_mutex_lock(&data->enders_mutex);
 			data->ended_coders += 1;
+			pthread_mutex_unlock(&data->enders_mutex);
+		}
 	}
 	return ((bool *)true);
 }
@@ -77,7 +81,7 @@ bool	start_manager(t_data *data, t_coders *coders)
 		pthread_create(&coders[pos].coder, NULL, quantum_code, &zip[pos]);
 		pos++;
 	}
-	data->running = true;
+	m_switch_running_state(data);
 	pthread_join(monitoring, NULL);
 	pos = 0;
 	while (pos < data->number_of_coders)

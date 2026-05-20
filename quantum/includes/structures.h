@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/20 12:13:46 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/21 00:53:32 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ struct s_codex_data
 	bool			running;
 	struct timeval	timer_start;
 	char			*scheduler;
-	t_coders		**heap;
+	pthread_mutex_t	running_mutex;
+	pthread_mutex_t	enders_mutex;
 };
 
 struct s_codex_coder
@@ -49,7 +50,9 @@ struct s_codex_dongle
 {
 	pthread_mutex_t		dongle;
 	pthread_mutex_t		dongle_heap;
+	pthread_mutex_t		dongle_state;
 	t_coders			*priority_queue[2];
+	bool				is_locked;
 };
 
 struct s_codex_zip

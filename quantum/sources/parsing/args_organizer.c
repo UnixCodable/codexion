@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:56:37 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/20 12:27:13 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/21 01:01:12 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ t_data	arguments_organizer(char **args)
 		.running = false
 	};
 
+	pthread_mutex_init(&data.running_mutex, NULL);
+	pthread_mutex_init(&data.enders_mutex, NULL);
 	gettimeofday(&data.timer_start, NULL);
 
 
