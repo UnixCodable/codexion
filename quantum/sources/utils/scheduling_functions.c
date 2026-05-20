@@ -5,71 +5,40 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/19 17:42:45 by lbordana         ###   ########.fr       */
+/*   Created: 2026/05/20 00:39:05 by lbordana          #+#    #+#             */
+/*   Updated: 2026/05/20 01:45:26 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
 
-void	s_swap(t_dongle *dongle)
+void	s_pop(t_data *data, t_coders *coder)
 {
-	t_coders	*temp;
-	t_coders	**heap;
+	uint8_t	pos;
 
-	heap = dongle->priority_queue;
-	temp = heap[0];
-	heap[0] = heap[1];
-	heap[1] = temp;
-	return ;
+	pos = 0;
+	while (data->heap[pos]->pos == coder->pos)
+		pos++;
+	data->heap[pos] = NULL;
+	while (true)
+	{
+
+	}
 }
 
-void	s_add(t_coders *thread, t_dongle *dongle)
-{
-	t_coders	**heap;
 
-	heap = dongle->priority_queue;
-	if ((heap[0] && heap[0]->pos == thread->pos) || (heap[1] && heap[1]->pos == thread->pos))
-		return ;
-	if (!heap[0])
-		heap[0] = thread;
-	else if (!heap[1])
-		heap[1] = thread;
-	return ;
+void	s_add(t_data *data, t_coders *coder)
+{
+	uint8_t	pos;
+
+	pos = 0;
+	while (data->heap[pos] != NULL)
+		pos++;
+	data->heap[pos] = coder;
 }
 
-void	s_pop(t_coders *thread, t_dongle *dongle)
+void	scheduler(t_data *data, t_coders *coders)
 {
-	t_coders	**heap;
-
-	heap = dongle->priority_queue;
-	if (heap[0]->pos == thread->pos)
-	{
-		s_swap(dongle);
-		heap[1] = NULL;
-	}
-	else if (heap[1]->pos == thread->pos)
-		heap[1] = NULL;
-	return ;
-}
-
-bool	scheduler(t_coders *thread, t_data *data)
-{
-	s_add(thread, thread->dongle_left);
-	s_add(thread, thread->dongle_right);
-	if (strcmp(data->scheduler, "fifo") == 0)
-	{
-		if (thread->dongle_right->priority_queue[0]->pos == thread->pos)
-		{
-			s_pop(thread, thread->dongle_left);
-			s_pop(thread, thread->dongle_right);
-			return (true);
-		}
-		return (false);
-	}
-	if (strcmp(data->scheduler, "edf") == 0)
-	{
-		return (false);
-	}
-	return (true);
+	while (data->running == true)
+		usleep(1);
 }

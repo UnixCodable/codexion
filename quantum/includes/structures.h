@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/19 17:41:37 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/20 01:20:38 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ struct s_codex_data
 	bool			running;
 	struct timeval	timer_start;
 	char			*scheduler;
+	t_coders		**heap;
 };
 
 struct s_codex_coder
