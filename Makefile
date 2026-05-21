@@ -1,6 +1,6 @@
 NAME=codexion
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -pthread -g -fsanitize=thread
+CFLAGS=-Wall -Wextra -Werror -pthread
 WORKDIR=quantum/sources/
 OBJDIR=quantum/objects/
 CFILES=codexion.c\
