@@ -6,9 +6,8 @@ OBJDIR=quantum/objects/
 CFILES=codexion.c\
 	   manager.c\
 	   monitor.c\
-	   args_validation.c\
-	   args_organizer.c\
-	   coders_creation.c\
+	   data_parsing.c\
+	   coders_parsing.c\
 	   scheduling_functions.c\
 	   validation_functions.c\
 	   mutex_functions.c

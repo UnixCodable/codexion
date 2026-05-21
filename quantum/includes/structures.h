@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/21 00:53:32 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/21 15:57:32 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ struct s_codex_data
 	uint16_t		number_of_compiles_required;
 	uint16_t		dongle_cooldown;
 	bool			running;
+	bool			mute;
 	struct timeval	timer_start;
 	char			*scheduler;
 	pthread_mutex_t	running_mutex;

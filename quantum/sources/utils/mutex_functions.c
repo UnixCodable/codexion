@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/21 13:13:07 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/21 17:55:42 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,19 +63,17 @@ void	m_print(t_coders *thread, t_data *data, char *str)
 	static pthread_mutex_t	mutex = PTHREAD_MUTEX_INITIALIZER;
 
 	pthread_mutex_lock(&mutex);
-	printf("\033[1;38;2;%lu;%lu;%lum %ld %u %s \033[0m\n",
-		(uint64_t)thread->dongle_left % 255,
-		(uint64_t)thread->dongle_right % 255,
-		(uint64_t) &(thread->pos) % 255, m_time(data), thread->pos, str);
+	if (data->mute == false)
+		printf("\033[1;38;2;%lu;%lu;%lum %ld %u %s \033[0m\n",
+			(uint64_t)thread->dongle_left % 255,
+			(uint64_t)thread->dongle_right % 255,
+			(uint64_t) &(thread->pos) % 255, m_time(data), thread->pos, str);
 	pthread_mutex_unlock(&mutex);
 }
 
 void	m_dongles_lock(t_coders *thread, t_data *data)
 {
 	while (scheduler(thread, data) == false)
-		usleep(1);
-	while (m_retrieve_dongle_state(thread->dongle_left) == true
-		|| m_retrieve_dongle_state(thread->dongle_right) == true)
 		usleep(1);
 	if (thread->pos % 2 != 0)
 	{
@@ -99,11 +97,11 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 
 void	m_dongles_unlock(t_coders *thread, t_data *data)
 {
-	usleep(data->dongle_cooldown * 1000);
 	if (thread->pos % 2 != 0)
 	{
 		pthread_mutex_unlock(&thread->dongle_left->dongle);
 		pthread_mutex_unlock(&thread->dongle_right->dongle);
+		usleep(data->dongle_cooldown * 1000);
 		m_switch_dongle_state(thread->dongle_left);
 		m_switch_dongle_state(thread->dongle_right);
 	}
@@ -111,6 +109,7 @@ void	m_dongles_unlock(t_coders *thread, t_data *data)
 	{
 		pthread_mutex_unlock(&thread->dongle_right->dongle);
 		pthread_mutex_unlock(&thread->dongle_left->dongle);
+		usleep(data->dongle_cooldown * 1000);
 		m_switch_dongle_state(thread->dongle_right);
 		m_switch_dongle_state(thread->dongle_left);
 	}
