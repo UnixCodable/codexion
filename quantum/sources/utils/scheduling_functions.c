@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/21 02:11:55 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/21 02:27:21 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,8 @@ int	s_retrieve(t_dongle *dongle)
 
 	coder_pos = -1;
 	pthread_mutex_lock(&dongle->dongle_heap);
-	printf("HERE %d\n", coder_pos);
 	if (dongle->priority_queue[0])
 		coder_pos = dongle->priority_queue[0]->pos;
-	printf("HERE %d\n", coder_pos);
 	pthread_mutex_unlock(&dongle->dongle_heap);
 	return (coder_pos);
 }
@@ -39,15 +37,7 @@ void	s_swap(t_dongle *dongle)
 void	s_add(t_coders *thread, t_dongle *dongle)
 {
 	pthread_mutex_lock(&dongle->dongle_heap);
-	if ((dongle->priority_queue[0]
-			&& dongle->priority_queue[0]->pos == thread->pos)
-		|| (dongle->priority_queue[1]
-			&& dongle->priority_queue[1]->pos == thread->pos))
-	{
-		printf("OUPS\n");
-		return;
-	}
-	if (!dongle->priority_queue[0])
+	if (!dongle->priority_queue[0] || dongle->priority_queue[0]->pos == thread->pos)
 		dongle->priority_queue[0] = thread;
 	else if (!dongle->priority_queue[1])
 		dongle->priority_queue[1] = thread;
