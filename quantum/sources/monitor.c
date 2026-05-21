@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 20:55:11 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/21 08:13:34 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/21 13:39:10 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	*monitor_function(void *data_addr)
 		if (data->ended_coders >= data->number_of_coders - 1)
 			m_switch_running_state(data);
 		pthread_mutex_unlock(&data->enders_mutex);
+		usleep(1);
 	}
 	return ((bool *)true);
 }
