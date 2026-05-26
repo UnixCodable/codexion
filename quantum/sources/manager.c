@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/26 16:27:03 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/26 22:26:20 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ void	*quantum_routine(void *zip)
 	data = ((t_zip *)zip)->data;
 	coder = ((t_zip *)zip)->coders;
 	comp = 0;
-	while (m_retrieve_running_state(data) == false)
+	while (m_retrieve_running_state(data) == false && coder->pos != 1)
 		usleep(1);
+	if (coder->pos == 1)
+		m_switch_running_state(data);
 	while (m_retrieve_running_state(data) == true)
 	{
 		compile(coder, data);
@@ -87,7 +89,6 @@ bool	start_manager(t_data *data, t_coders *coders)
 		pthread_create(&coders[pos].coder, NULL, quantum_routine, &zip[pos]);
 		pos++;
 	}
-	m_switch_running_state(data);
 	pthread_join(monitoring, NULL);
 	pos = 0;
 	while (pos < data->number_of_coders)

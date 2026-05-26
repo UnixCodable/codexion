@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/26 17:22:00 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/26 22:01:26 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,44 +75,24 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 {
 	while (scheduler(thread, data) == false)
 		usleep(1);
-	if (thread->pos % 2 != 0)
-	{
-		pthread_mutex_lock(&thread->dongle_left->dongle);
-		pthread_mutex_lock(&thread->dongle_right->dongle);
-		m_print(thread, data, "has taken left dongle");
-		m_switch_dongle_state(thread->dongle_left);
-		m_print(thread, data, "has taken right dongle");
-		m_switch_dongle_state(thread->dongle_right);
-	}
-	else
-	{
-		pthread_mutex_lock(&thread->dongle_right->dongle);
-		pthread_mutex_lock(&thread->dongle_left->dongle);
-		m_print(thread, data, "has taken right dongle");
-		m_switch_dongle_state(thread->dongle_right);
-		m_print(thread, data, "has taken left dongle");
-		m_switch_dongle_state(thread->dongle_left);
-	}
+	pthread_mutex_lock(&thread->dongle_left->dongle);
+	pthread_mutex_lock(&thread->dongle_right->dongle);
+	while (thread->dongle_left->is_locked == true
+		|| thread->dongle_right->is_locked == true)
+		usleep(1);
+	m_switch_dongle_state(thread->dongle_left);
+	m_print(thread, data, "has taken left dongle");
+	m_switch_dongle_state(thread->dongle_right);
+	m_print(thread, data, "has taken right dongle");
 }
 
 void	m_dongles_unlock(t_coders *thread, t_data *data)
 {
-	if (thread->pos % 2 != 0)
-	{
-		pthread_mutex_unlock(&thread->dongle_left->dongle);
-		pthread_mutex_unlock(&thread->dongle_right->dongle);
-		usleep(data->dongle_cooldown * 1000);
-		m_switch_dongle_state(thread->dongle_left);
-		m_switch_dongle_state(thread->dongle_right);
-	}
-	else
-	{
-		pthread_mutex_unlock(&thread->dongle_right->dongle);
-		pthread_mutex_unlock(&thread->dongle_left->dongle);
-		usleep(data->dongle_cooldown * 1000);
-		m_switch_dongle_state(thread->dongle_right);
-		m_switch_dongle_state(thread->dongle_left);
-	}
+	pthread_mutex_unlock(&thread->dongle_right->dongle);
+	pthread_mutex_unlock(&thread->dongle_left->dongle);
+	usleep(data->dongle_cooldown * 1000);
+	m_switch_dongle_state(thread->dongle_right);
+	m_switch_dongle_state(thread->dongle_left);
 }
 
 uint64_t	m_time(t_data *data)
