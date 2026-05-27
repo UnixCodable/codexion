@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/27 09:16:39 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/27 10:44:50 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ void	*quantum_routine(void *zip)
 	while (coder->pos != order + 1)
 		usleep(1);
 	order++;
-	while (m_retrieve_running_state(data) == true || order == coder->pos)
+	if (coder->pos == data->number_of_coders)
+	{
+		order = 0;
+		m_switch_running_state(data);
+	}
+	while (m_retrieve_running_state(data) == true || order >= coder->pos)
 	{
 		compile(coder, data);
 		debug(coder, data);
