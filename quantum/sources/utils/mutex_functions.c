@@ -6,57 +6,11 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 00:54:59 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 01:08:14 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
-
-void	m_switch_dongle_state(t_dongle *dongle)
-{
-	pthread_mutex_lock(&dongle->dongle_state);
-	if (dongle->is_locked == true)
-		dongle->is_locked = false;
-	else
-		dongle->is_locked = true;
-	pthread_mutex_unlock(&dongle->dongle_state);
-}
-
-bool	m_retrieve_dongle_state(t_dongle *dongle)
-{
-	bool	is_unlock;
-
-	pthread_mutex_lock(&dongle->dongle_state);
-	if (dongle->is_locked == true)
-		is_unlock = true;
-	else
-		is_unlock = false;
-	pthread_mutex_unlock(&dongle->dongle_state);
-	return (is_unlock);
-}
-
-bool	m_retrieve_running_state(t_data *data)
-{
-	bool	is_unlock;
-
-	pthread_mutex_lock(&data->running_mutex);
-	if (data->running == true)
-		is_unlock = true;
-	else
-		is_unlock = false;
-	pthread_mutex_unlock(&data->running_mutex);
-	return (is_unlock);
-}
-
-void	m_switch_running_state(t_data *data)
-{
-	pthread_mutex_lock(&data->running_mutex);
-	if (data->running == true)
-		data->running = false;
-	else
-		data->running = true;
-	pthread_mutex_unlock(&data->running_mutex);
-}
 
 void	m_print(t_coders *thread, t_data *data, char *str)
 {

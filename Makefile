@@ -10,6 +10,7 @@ CFILES=codexion.c\
 	   coders_parsing.c\
 	   scheduling_functions.c\
 	   validation_functions.c\
+	   mutex_states.c\
 	   mutex_functions.c
 OFILES=$(CFILES:%.c=$(OBJDIR)%.o)
 
