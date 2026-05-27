@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/27 18:13:29 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/27 18:20:14 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ bool	scheduler(t_coders *thread, t_data *data)
 {
 	s_add(thread, thread->dongle_left);
 	s_add(thread, thread->dongle_right);
-	// fprintf(stderr, "%d (left): [%d, %d]\n", thread->pos, thread->dongle_left->priority_queue[0] ? thread->dongle_left->priority_queue[0]->pos : -1, thread->dongle_left->priority_queue[1] ? thread->dongle_left->priority_queue[1]->pos : -1);
-	// fprintf(stderr, "%d (right): [%d, %d]\n", thread->pos, thread->dongle_right->priority_queue[0] ? thread->dongle_right->priority_queue[0]->pos : -1, thread->dongle_right->priority_queue[1] ? thread->dongle_right->priority_queue[1]->pos : -1);
 	if (strcmp(data->scheduler, "edf") == 0)
 	{
 		pthread_mutex_lock(&thread->dongle_left->dongle_heap);
