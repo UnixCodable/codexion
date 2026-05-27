@@ -1,8 +1,0 @@
-[1;38;2;94;238;229m 300 1 is refactoring... [0m
-[1;38;2;127;94;54m 500 3 is refactoring... [0m
-[1;38;2;238;127;14m 701 2 is refactoring... [0m
-[1;38;2;94;238;229m 901 1 is refactoring... [0m
-[1;38;2;127;94;54m 1101 3 is refactoring... [0m
-[1;38;2;238;127;14m 1301 2 is refactoring... [0m
-[1;38;2;94;238;229m 1502 1 is refactoring... [0m
-[1;38;2;127;94;54m 1702 3 is refactoring... [0m
