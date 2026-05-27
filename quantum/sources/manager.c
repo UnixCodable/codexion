@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/27 10:44:50 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/27 17:47:27 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ bool	debug(t_coders *thread, t_data *data)
 
 bool	compile(t_coders *thread, t_data *data)
 {
-	// while (m_retrieve_dongle_state(thread->dongle_left) == true
-	// 	&& m_retrieve_dongle_state(thread->dongle_right) == true)
-	// 	usleep(1);
 	m_dongles_lock(thread, data);
 	m_print(thread, data, "is compiling...");
 	thread->last_compile = m_time(data);
@@ -44,20 +41,15 @@ void	*quantum_routine(void *zip)
 	t_data					*data;
 	t_coders				*coder;
 	uint16_t				comp;
-	static uint8_t			order = 0;
 
 	data = ((t_zip *)zip)->data;
 	coder = ((t_zip *)zip)->coders;
 	comp = 0;
-	while (coder->pos != order + 1)
-		usleep(1);
-	order++;
-	if (coder->pos == data->number_of_coders)
-	{
-		order = 0;
-		m_switch_running_state(data);
-	}
-	while (m_retrieve_running_state(data) == true || order >= coder->pos)
+	if (data->number_of_coders == 1)
+		usleep(data->time_to_burnout * 1000 * 2);
+	if (coder->pos % 2 == 0)
+		usleep(data->time_to_compile * 1000);
+	while (m_retrieve_running_state(data) == true)
 	{
 		compile(coder, data);
 		debug(coder, data);

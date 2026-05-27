@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 14:17:28 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/21 15:57:52 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/27 17:47:39 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_data	arguments_organizer(char **args)
 		.scheduler = args[7],
 		.ended_coders = 0,
 		.mute = false,
-		.running = false
+		.running = true
 	};
 
 	pthread_mutex_init(&data.running_mutex, NULL);
