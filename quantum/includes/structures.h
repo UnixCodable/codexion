@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/21 15:57:32 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 00:54:37 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ struct s_codex_data
 	char			*scheduler;
 	pthread_mutex_t	running_mutex;
 	pthread_mutex_t	enders_mutex;
+	pthread_mutex_t	print_mutex;
 };
 
 struct s_codex_coder
@@ -45,6 +46,7 @@ struct s_codex_coder
 	t_dongle			*dongle_left;
 	t_dongle			*dongle_right;
 	uint64_t			last_compile;
+	pthread_mutex_t		time_mutex;
 };
 
 struct s_codex_dongle

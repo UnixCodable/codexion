@@ -1,6 +1,6 @@
 NAME=codexion
 CC=cc
-CFLAGS=-Wall -Wextra -Werror -pthread -fsanitize=thread
+CFLAGS=-Wall -Wextra -Werror -pthread
 WORKDIR=quantum/sources/
 OBJDIR=quantum/objects/
 CFILES=codexion.c\
@@ -17,6 +17,9 @@ all: $(NAME)
 
 $(NAME): $(OBJDIR) $(OFILES)
 	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
+
+debug: fclean $(OBJDIR) $(OFILES)
+	$(CC) $(CFLAGS) -fsanitize=thread $(OFILES) -o $(NAME)
 
 $(OBJDIR)%.o: $(WORKDIR)utils/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@

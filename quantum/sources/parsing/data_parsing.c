@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 14:17:28 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/27 17:47:39 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 00:55:12 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_data	arguments_organizer(char **args)
 
 	pthread_mutex_init(&data.running_mutex, NULL);
 	pthread_mutex_init(&data.enders_mutex, NULL);
+	pthread_mutex_init(&data.print_mutex, NULL);
 	gettimeofday(&data.timer_start, NULL);
 
 	return (data);
