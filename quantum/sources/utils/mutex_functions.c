@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/26 22:01:26 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/27 09:02:57 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 		usleep(1);
 	pthread_mutex_lock(&thread->dongle_left->dongle);
 	pthread_mutex_lock(&thread->dongle_right->dongle);
-	while (thread->dongle_left->is_locked == true
-		|| thread->dongle_right->is_locked == true)
+	while (m_retrieve_dongle_state(thread->dongle_left) == true
+		|| m_retrieve_dongle_state(thread->dongle_right) == true)
 		usleep(1);
 	m_switch_dongle_state(thread->dongle_left);
 	m_print(thread, data, "has taken left dongle");
