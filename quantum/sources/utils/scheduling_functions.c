@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 08:42:47 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 17:19:11 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ void	s_swap(t_dongle *dongle)
 {
 	t_coders	*temp;
 
-	pthread_mutex_lock(&dongle->dongle_heap);
 	temp = dongle->priority_queue[0];
 	dongle->priority_queue[0] = dongle->priority_queue[1];
 	dongle->priority_queue[1] = temp;
-	pthread_mutex_unlock(&dongle->dongle_heap);
 	return ;
 }
 
@@ -73,18 +71,22 @@ bool	scheduler(t_coders *thread, t_data *data)
 	s_add(thread, thread->dongle_right);
 	if (strcmp(data->scheduler, "edf") == 0)
 	{
+		pthread_mutex_lock(&thread->dongle_left->dongle_heap);
 		if (thread->dongle_left->priority_queue[1]
 			&& thread->dongle_left->priority_queue[0]->last_compile
 			+ data->time_to_burnout
 			> thread->dongle_left->priority_queue[1]->last_compile
 			+ data->time_to_burnout)
 			s_swap(thread->dongle_left);
+		pthread_mutex_unlock(&thread->dongle_left->dongle_heap);
+		pthread_mutex_lock(&thread->dongle_right->dongle_heap);
 		if (thread->dongle_right->priority_queue[1]
 			&& thread->dongle_right->priority_queue[0]->last_compile
 			+ data->time_to_burnout
 			> thread->dongle_right->priority_queue[1]->last_compile
 			+ data->time_to_burnout)
 			s_swap(thread->dongle_right);
+		pthread_mutex_unlock(&thread->dongle_right->dongle_heap);
 	}
 	if (s_retrieve(thread->dongle_right) == thread->pos
 		&& s_retrieve(thread->dongle_left) == thread->pos)

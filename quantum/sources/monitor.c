@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 20:55:11 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 08:56:27 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 15:22:41 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ bool	check_time(t_coders *coders, t_data *data)
 		if (m_time(data) - coders[pos].last_compile > data->time_to_burnout)
 		{
 			pthread_mutex_lock(&data->print_mutex);
-			m_switch_running_state(data);
+			data->mute = true;
 			pthread_mutex_unlock(&data->print_mutex);
 			usleep(1000);
+			m_switch_running_state(data);
 			pthread_mutex_lock(&data->enders_mutex);
 			m_print(&coders[pos], data, "burned out.", true);
-			data->mute = true;
 			pthread_mutex_unlock(&data->enders_mutex);
 			pthread_mutex_unlock(&coders[pos].time_mutex);
 			return (false);

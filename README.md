@@ -47,7 +47,7 @@ For a while, I stuttered with timing, has I didn't know what was really "require
 Then, after asking several people, they explained to me the timing composition.
 
 Also valgrind mutex verification was pretty annoying because of pretended possible data race.
-Even if those were never appearing, I choose to protect every variable writing and reading in threads.
+Even if those were never appearing, I choose to protect every variable writing and reading during routine.
 
 ## Thread synchronization mechanisms
 
@@ -56,4 +56,9 @@ familiar than a sleepy while loop in my cases.
 
 However, the main mechanisms were implemented in order to protect data race or deadlock.
 
-At first, I am initializing all my coders and my monitor threads.
+At first, I am initializing all my coders and my monitor threads with pthread_create.
+Then, I am using a pthread_join on the monitor that will run until the end of the program.
+
+I am also joining every threads to complete their refactoring session after that.
+
+During routine execution, I have also implemented custom mutexes functions with pthread_lock and pthread_unlock, that ensure that no data race is possible.
