@@ -6,16 +6,16 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 01:08:14 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 08:52:55 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
 
-void	m_print(t_coders *thread, t_data *data, char *str)
+void	m_print(t_coders *thread, t_data *data, char *str, bool burnout)
 {
 	pthread_mutex_lock(&data->print_mutex);
-	if (data->mute == false)
+	if (data->mute == false || burnout == true)
 		printf("\033[1;38;2;%lu;%lu;%lum %ld %u %s \033[0m\n",
 			(uint64_t)thread->dongle_left % 255,
 			(uint64_t)thread->dongle_right % 255,
@@ -44,9 +44,9 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 			usleep(1);
 	}
 	m_switch_dongle_state(thread->dongle_left);
-	m_print(thread, data, "has taken left dongle");
+	m_print(thread, data, "has taken left dongle", false);
 	m_switch_dongle_state(thread->dongle_right);
-	m_print(thread, data, "has taken right dongle");
+	m_print(thread, data, "has taken right dongle", false);
 }
 
 void	m_dongles_unlock(t_coders *thread, t_data *data)

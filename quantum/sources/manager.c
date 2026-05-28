@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 00:49:41 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 08:54:01 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 bool	refactor(t_coders *thread, t_data *data)
 {
-	m_print(thread, data, "is refactoring...");
+	m_print(thread, data, "is refactoring...", false);
 	usleep(data->time_to_refactor * 1000);
 	return (true);
 }
 
 bool	debug(t_coders *thread, t_data *data)
 {
-	m_print(thread, data, "is debugging...");
+	m_print(thread, data, "is debugging...", false);
 	usleep(data->time_to_debug * 1000);
 	return (true);
 }
@@ -29,7 +29,7 @@ bool	debug(t_coders *thread, t_data *data)
 bool	compile(t_coders *thread, t_data *data)
 {
 	m_dongles_lock(thread, data);
-	m_print(thread, data, "is compiling...");
+	m_print(thread, data, "is compiling...", false);
 	pthread_mutex_lock(&thread->time_mutex);
 	thread->last_compile = m_time(data);
 	pthread_mutex_unlock(&thread->time_mutex);

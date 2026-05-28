@@ -43,10 +43,17 @@ As I did not use AI, here are some tutorials I used to understand how pthread wa
 
 ## Blocking cases handled
 
-For a while, I stuttered with timing, has I didn't know what was really "required" to pass.
+For a while, I stuttered with timing, has I didn't know what was really "required" by the subject in terms of performance.
 Then, after asking several people, they explained to me the timing composition.
 
 Also valgrind mutex verification was pretty annoying because of pretended possible data race.
 Even if those were never appearing, I choose to protect every variable writing and reading in threads.
 
 ## Thread synchronization mechanisms
+
+The mechanisms used were basic, I did not went through pthread_cond mechanisms as it was not feeling as
+familiar than a sleepy while loop in my cases.
+
+However, the main mechanisms were implemented in order to protect data race or deadlock.
+
+At first, I am initializing all my coders and my monitor threads.

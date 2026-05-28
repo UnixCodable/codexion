@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 00:18:37 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 08:42:47 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ int	s_retrieve(t_dongle *dongle)
 {
 	int	coder_pos;
 
+	coder_pos = -1;
 	pthread_mutex_lock(&dongle->dongle_heap);
-	coder_pos = dongle->priority_queue[0]->pos;
+	if (dongle->priority_queue[0])
+		coder_pos = dongle->priority_queue[0]->pos;
 	pthread_mutex_unlock(&dongle->dongle_heap);
 	return (coder_pos);
 }
