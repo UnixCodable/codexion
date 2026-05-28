@@ -6,23 +6,11 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 19:14:04 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 19:26:00 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
-
-int	s_retrieve(t_dongle *dongle)
-{
-	int	coder_pos;
-
-	coder_pos = -1;
-	pthread_mutex_lock(&dongle->dongle_heap);
-	if (dongle->priority_queue[0])
-		coder_pos = dongle->priority_queue[0]->pos;
-	pthread_mutex_unlock(&dongle->dongle_heap);
-	return (coder_pos);
-}
 
 void	s_swap(t_dongle *dongle)
 {
@@ -65,28 +53,24 @@ void	s_pop(t_coders *thread, t_dongle *dongle)
 	return ;
 }
 
+void	s_check_edf(t_dongle *dongle, t_data *data)
+{
+	pthread_mutex_lock(&dongle->dongle_heap);
+	if (dongle->priority_queue[1] && dongle->priority_queue[0]->last_compile
+		+ data->time_to_burnout > dongle->priority_queue[1]->last_compile
+		+ data->time_to_burnout)
+		s_swap(dongle);
+	pthread_mutex_unlock(&dongle->dongle_heap);
+}
+
 bool	scheduler(t_coders *thread, t_data *data)
 {
 	s_add(thread, thread->dongle_left);
 	s_add(thread, thread->dongle_right);
 	if (strcmp(data->scheduler, "edf") == 0)
 	{
-		pthread_mutex_lock(&thread->dongle_left->dongle_heap);
-		if (thread->dongle_left->priority_queue[1]
-			&& thread->dongle_left->priority_queue[0]->last_compile
-			+ data->time_to_burnout
-			> thread->dongle_left->priority_queue[1]->last_compile
-			+ data->time_to_burnout)
-			s_swap(thread->dongle_left);
-		pthread_mutex_unlock(&thread->dongle_left->dongle_heap);
-		pthread_mutex_lock(&thread->dongle_right->dongle_heap);
-		if (thread->dongle_right->priority_queue[1]
-			&& thread->dongle_right->priority_queue[0]->last_compile
-			+ data->time_to_burnout
-			> thread->dongle_right->priority_queue[1]->last_compile
-			+ data->time_to_burnout)
-			s_swap(thread->dongle_right);
-		pthread_mutex_unlock(&thread->dongle_right->dongle_heap);
+		s_check_edf(thread->dongle_left, data);
+		s_check_edf(thread->dongle_right, data);
 	}
 	if (s_retrieve(thread->dongle_right) == thread->pos
 		&& s_retrieve(thread->dongle_left) == thread->pos)

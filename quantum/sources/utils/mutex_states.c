@@ -6,11 +6,23 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 01:08:33 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 01:09:04 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 19:19:26 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/codexion.h"
+
+int	s_retrieve(t_dongle *dongle)
+{
+	int	coder_pos;
+
+	coder_pos = -1;
+	pthread_mutex_lock(&dongle->dongle_heap);
+	if (dongle->priority_queue[0])
+		coder_pos = dongle->priority_queue[0]->pos;
+	pthread_mutex_unlock(&dongle->dongle_heap);
+	return (coder_pos);
+}
 
 void	m_switch_dongle_state(t_dongle *dongle)
 {
