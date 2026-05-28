@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 14:54:31 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 18:40:16 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,15 @@ void	*quantum_routine(void *zip)
 	coder = ((t_zip *)zip)->coders;
 	comp = 0;
 	if (data->number_of_coders == 1)
-		usleep(data->time_to_burnout * 1000 * 2);
+		usleep(data->time_to_burnout * 1000 * 10);
 	if (coder->pos % 2 == 0)
-		usleep(data->time_to_compile * 1000 + 1000);
+		usleep(data->time_to_compile * 1000);
 	while (m_retrieve_running_state(data) == true)
 	{
 		compile(coder, data);
 		debug(coder, data);
 		refactor(coder, data);
-		comp++;
-		if (comp == data->number_of_compiles_required)
+		if (comp++ == data->number_of_compiles_required)
 		{
 			pthread_mutex_lock(&data->enders_mutex);
 			data->ended_coders += 1;

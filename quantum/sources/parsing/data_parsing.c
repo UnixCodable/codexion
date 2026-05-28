@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/21 14:17:28 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 00:59:34 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/28 18:55:33 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ bool	validate_arguments(char **args)
 		return (false);
 	if (is_num(args[4]) == false || atoi(args[4]) < 0 || atoi(args[4]) > 60000)
 		return (false);
-	if (is_num(args[5]) == false || atoi(args[5]) < 0 || atoi(args[5]) > 60000)
+	if (is_num(args[5]) == false || atoi(args[5]) < 1 || atoi(args[5]) > 60000)
 		return (false);
 	if (is_num(args[6]) == false || atoi(args[6]) < 0 || atoi(args[6]) > 60000)
 		return (false);

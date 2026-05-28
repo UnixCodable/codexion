@@ -24,7 +24,7 @@ Then, you can run the program with :
 
 For each argue, please enter right values :
 
-number_of_coders : 1-255\
+number_of_coders : 1-250\
 time_to_burnout : 1-60000\
 time_to_compile : 0-60000\
 time_to_debug : 0-60000\
