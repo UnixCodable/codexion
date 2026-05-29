@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 18:40:16 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 11:26:11 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ bool	compile(t_coders *thread, t_data *data)
 {
 	m_dongles_lock(thread, data);
 	m_print(thread, data, "is compiling...", false);
+	usleep(data->time_to_compile * 1000);
 	pthread_mutex_lock(&thread->time_mutex);
 	thread->last_compile = m_time(data);
 	pthread_mutex_unlock(&thread->time_mutex);
-	usleep(data->time_to_compile * 1000);
 	m_dongles_unlock(thread, data);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:46:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 00:54:37 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 11:34:02 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ struct s_codex_dongle
 	pthread_mutex_t		dongle;
 	pthread_mutex_t		dongle_heap;
 	pthread_mutex_t		dongle_state;
+	uint64_t			last_used;
 	t_coders			*priority_queue[2];
 	bool				is_locked;
 };

@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 17:46:38 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 11:39:56 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 	{
 		pthread_mutex_lock(&thread->dongle_left->dongle);
 		pthread_mutex_lock(&thread->dongle_right->dongle);
-		while (m_retrieve_dongle_state(thread->dongle_left) == true
-			|| m_retrieve_dongle_state(thread->dongle_right) == true)
+		while (m_retrieve_dongle_state(thread->dongle_left, data) == true
+			|| m_retrieve_dongle_state(thread->dongle_right, data) == true)
 			usleep(1);
 	}
 	else
 	{
 		pthread_mutex_lock(&thread->dongle_right->dongle);
 		pthread_mutex_lock(&thread->dongle_left->dongle);
-		while (m_retrieve_dongle_state(thread->dongle_left) == true
-			|| m_retrieve_dongle_state(thread->dongle_right) == true)
+		while (m_retrieve_dongle_state(thread->dongle_left, data) == true
+			|| m_retrieve_dongle_state(thread->dongle_right, data) == true)
 			usleep(1);
 	}
 	m_switch_dongle_state(thread->dongle_left);
@@ -53,7 +53,8 @@ void	m_dongles_unlock(t_coders *thread, t_data *data)
 {
 	pthread_mutex_unlock(&thread->dongle_right->dongle);
 	pthread_mutex_unlock(&thread->dongle_left->dongle);
-	usleep(data->dongle_cooldown * 1000);
+	thread->dongle_right->last_used = m_time(data);
+	thread->dongle_left->last_used = m_time(data);
 	m_switch_dongle_state(thread->dongle_right);
 	m_switch_dongle_state(thread->dongle_left);
 }
