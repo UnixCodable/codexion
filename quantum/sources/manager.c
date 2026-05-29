@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 11:26:11 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 13:15:16 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ bool	compile(t_coders *thread, t_data *data)
 {
 	m_dongles_lock(thread, data);
 	m_print(thread, data, "is compiling...", false);
-	usleep(data->time_to_compile * 1000);
 	pthread_mutex_lock(&thread->time_mutex);
 	thread->last_compile = m_time(data);
 	pthread_mutex_unlock(&thread->time_mutex);
+	usleep(data->time_to_compile * 1000);
 	m_dongles_unlock(thread, data);
 	return (true);
 }
@@ -48,7 +48,7 @@ void	*quantum_routine(void *zip)
 	coder = ((t_zip *)zip)->coders;
 	comp = 0;
 	if (data->number_of_coders == 1)
-		usleep(data->time_to_burnout * 1000 * 10);
+		usleep(data->time_to_burnout * 1000 * 4);
 	if (coder->pos % 2 == 0)
 		usleep(data->time_to_compile * 1000);
 	while (m_retrieve_running_state(data) == true)

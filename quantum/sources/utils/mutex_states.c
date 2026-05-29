@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 01:08:33 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 12:15:48 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:27:59 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,12 @@ int	s_retrieve(t_dongle *dongle)
 	return (coder_pos);
 }
 
-void	m_switch_dongle_state(t_dongle *dongle)
-{
-	pthread_mutex_lock(&dongle->dongle_state);
-	if (dongle->is_locked == true)
-		dongle->is_locked = false;
-	else
-		dongle->is_locked = true;
-	pthread_mutex_unlock(&dongle->dongle_state);
-}
-
 bool	m_retrieve_dongle_state(t_dongle *dongle, t_data *data)
 {
 	bool	is_unlock;
 
 	pthread_mutex_lock(&dongle->dongle_state);
-	if (dongle->is_locked == true
-		|| dongle->last_used > m_time(data) - data->dongle_cooldown)
+	if (dongle->last_used > m_time(data) - data->dongle_cooldown)
 		is_unlock = true;
 	else
 		is_unlock = false;

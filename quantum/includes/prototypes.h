@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/29 17:43:40 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 11:39:34 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:29:25 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ uint64_t	m_time(t_data *data);
 void		m_switch_running_state(t_data *data);
 bool		m_retrieve_running_state(t_data *data);
 bool		m_retrieve_dongle_state(t_dongle *dongle, t_data *data);
-void		m_switch_dongle_state(t_dongle *dongle);
 int			s_retrieve(t_dongle *dongle);
 
 #endif

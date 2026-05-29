@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 11:19:18 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:33:56 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ t_dongle	*dongle_init(t_data *data)
 		pthread_mutex_init(&dongles[pos].dongle_heap, NULL);
 		pthread_mutex_init(&dongles[pos].dongle_state, NULL);
 		dongles[pos].priority_queue[0] = NULL;
-		dongles[pos].priority_queue[1] = NULL;
-		dongles[pos++].is_locked = false;
+		dongles[pos++].priority_queue[1] = NULL;
 	}
 	return (dongles);
 }

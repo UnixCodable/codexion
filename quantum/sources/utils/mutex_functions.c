@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 12:19:10 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:31:43 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,20 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 			|| m_retrieve_dongle_state(thread->dongle_right, data) == true)
 			usleep(1);
 	}
-	m_switch_dongle_state(thread->dongle_left);
 	m_print(thread, data, "has taken left dongle", false);
-	m_switch_dongle_state(thread->dongle_right);
 	m_print(thread, data, "has taken right dongle", false);
 }
 
 void	m_dongles_unlock(t_coders *thread, t_data *data)
 {
-	pthread_mutex_unlock(&thread->dongle_right->dongle);
-	pthread_mutex_unlock(&thread->dongle_left->dongle);
 	pthread_mutex_lock(&thread->dongle_left->dongle_state);
 	thread->dongle_left->last_used = m_time(data);
 	pthread_mutex_unlock(&thread->dongle_left->dongle_state);
 	pthread_mutex_lock(&thread->dongle_right->dongle_state);
 	thread->dongle_right->last_used = m_time(data);
 	pthread_mutex_unlock(&thread->dongle_right->dongle_state);
-	m_switch_dongle_state(thread->dongle_right);
-	m_switch_dongle_state(thread->dongle_left);
+	pthread_mutex_unlock(&thread->dongle_right->dongle);
+	pthread_mutex_unlock(&thread->dongle_left->dongle);
 }
 
 uint64_t	m_time(t_data *data)
