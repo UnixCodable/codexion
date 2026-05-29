@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 19:13:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 19:26:00 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 14:59:12 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ bool	scheduler(t_coders *thread, t_data *data)
 	if (s_retrieve(thread->dongle_right) == thread->pos
 		&& s_retrieve(thread->dongle_left) == thread->pos)
 	{
-		s_pop(thread, thread->dongle_right);
-		s_pop(thread, thread->dongle_left);
 		return (true);
 	}
 	return (false);

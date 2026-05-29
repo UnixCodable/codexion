@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 12:31:43 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 15:03:11 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 	{
 		pthread_mutex_lock(&thread->dongle_left->dongle);
 		pthread_mutex_lock(&thread->dongle_right->dongle);
+		s_pop(thread, thread->dongle_left);
+		s_pop(thread, thread->dongle_right);
 		while (m_retrieve_dongle_state(thread->dongle_left, data) == true
 			|| m_retrieve_dongle_state(thread->dongle_right, data) == true)
 			usleep(1);
@@ -39,6 +41,8 @@ void	m_dongles_lock(t_coders *thread, t_data *data)
 	{
 		pthread_mutex_lock(&thread->dongle_right->dongle);
 		pthread_mutex_lock(&thread->dongle_left->dongle);
+		s_pop(thread, thread->dongle_right);
+		s_pop(thread, thread->dongle_left);
 		while (m_retrieve_dongle_state(thread->dongle_left, data) == true
 			|| m_retrieve_dongle_state(thread->dongle_right, data) == true)
 			usleep(1);

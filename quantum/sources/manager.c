@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 01:58:43 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 13:15:16 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 14:44:30 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void	*quantum_routine(void *zip)
 	comp = 0;
 	if (data->number_of_coders == 1)
 		usleep(data->time_to_burnout * 1000 * 4);
-	if (coder->pos % 2 == 0)
-		usleep(data->time_to_compile * 1000);
+	// if (coder->pos % 2 == 0)
+	// 	usleep((data->time_to_compile + data->dongle_cooldown) * 1000);
 	while (m_retrieve_running_state(data) == true)
 	{
 		compile(coder, data);
