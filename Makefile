@@ -19,7 +19,7 @@ all: $(NAME)
 $(NAME): $(OBJDIR) $(OFILES)
 	$(CC) $(CFLAGS) $(OFILES) -o $(NAME)
 
-debug: fclean $(OBJDIR) $(OFILES)
+debug: re $(OBJDIR) $(OFILES)
 	$(CC) $(CFLAGS) -fsanitize=thread $(OFILES) -o $(NAME)
 
 $(OBJDIR)%.o: $(WORKDIR)utils/%.c | $(OBJDIR)
