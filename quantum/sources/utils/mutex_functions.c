@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/06 12:03:59 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 11:39:56 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 11:50:50 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ void	m_dongles_unlock(t_coders *thread, t_data *data)
 {
 	pthread_mutex_unlock(&thread->dongle_right->dongle);
 	pthread_mutex_unlock(&thread->dongle_left->dongle);
-	thread->dongle_right->last_used = m_time(data);
+	pthread_mutex_lock(&thread->dongle_left->dongle_state);
 	thread->dongle_left->last_used = m_time(data);
+	pthread_mutex_unlock(&thread->dongle_left->dongle_state);
+	pthread_mutex_lock(&thread->dongle_right->dongle_state);
+	thread->dongle_right->last_used = m_time(data);
+	pthread_mutex_unlock(&thread->dongle_right->dongle_state);
 	m_switch_dongle_state(thread->dongle_right);
 	m_switch_dongle_state(thread->dongle_left);
 }
