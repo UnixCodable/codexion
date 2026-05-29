@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 13:27:54 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/28 00:14:10 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:38:33 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@ int	main(int ac, char **av)
 	if (!board)
 		return (raise_error(2));
 	if (start_manager(&data, board) == false)
+	{
+		free(board->dongle_left);
+		free(board);
 		return (raise_error(2));
+	}
 	free(board->dongle_left);
 	free(board);
 	return (EXIT_SUCCESS);

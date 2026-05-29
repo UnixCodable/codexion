@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 15:12:07 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 13:22:45 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 17:42:42 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ t_coders	*coders_board(t_data *data)
 	board = malloc(sizeof(t_coders) * data->number_of_coders);
 	dongles = dongle_init(data);
 	if (!dongles || !board)
+	{
+		if (!board)
+			free(board);
 		return (NULL);
+	}
 	while (pos < data->number_of_coders)
 	{
 		board[pos].dongle_left = &dongles[pos];
@@ -53,8 +57,7 @@ t_coders	*coders_board(t_data *data)
 			board[pos].dongle_right = &dongles[0];
 		board[pos].pos = pos + 1;
 		board[pos].last_compile = m_time(data);
-		pthread_mutex_init(&board[pos].time_mutex, NULL);
-		pos++;
+		pthread_mutex_init(&board[pos++].time_mutex, NULL);
 	}
 	return (board);
 }
