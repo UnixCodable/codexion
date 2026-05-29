@@ -26,11 +26,11 @@ For each argue, please enter right values :
 
 number_of_coders : 1-250\
 time_to_burnout : 1-60000\
-time_to_compile : 0-60000\
-time_to_debug : 0-60000\
-time_to_refactor : 0-60000\
+time_to_compile : 1-60000\
+time_to_debug : 1-60000\
+time_to_refactor : 1-60000\
 number_of_compiles_required : 1-60000\
-dongle_cooldown : 0-60000\
+dongle_cooldown : 1-60000\
 scheduler : 'fifo' (First in - First out) or 'edf' (Earliest deadline first)
 
 ## Resources
