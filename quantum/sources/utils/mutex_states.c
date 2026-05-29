@@ -6,7 +6,7 @@
 /*   By: lbordana <lbordana@student.42mulhouse.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 01:08:33 by lbordana          #+#    #+#             */
-/*   Updated: 2026/05/29 11:42:13 by lbordana         ###   ########.fr       */
+/*   Updated: 2026/05/29 12:15:48 by lbordana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	m_retrieve_dongle_state(t_dongle *dongle, t_data *data)
 
 	pthread_mutex_lock(&dongle->dongle_state);
 	if (dongle->is_locked == true
-		&& dongle->last_used <= m_time(data) - data->dongle_cooldown)
+		|| dongle->last_used > m_time(data) - data->dongle_cooldown)
 		is_unlock = true;
 	else
 		is_unlock = false;
